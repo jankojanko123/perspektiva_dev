@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "336363186539",
+    "project_id": "perspektiva-app",
+    "storage_bucket": "perspektiva-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:336363186539:android:47571b775c7a50e1aec42e",
+        "android_client_info": {
+          "package_name": "perspektiva.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIAG6__3AYczL1kgatZyILuEYmhffAy74"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

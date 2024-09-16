@@ -1,0 +1,18 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "perspektivas",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "town_zip",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "perspektiva_uuid",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
+}
