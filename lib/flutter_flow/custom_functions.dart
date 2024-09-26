@@ -55,6 +55,8 @@ bool isPointInsideCircel(
   LatLng? guessLocation,
   int? difficulty,
 ) {
+  print("GETS HERE");
+
   double radius = getRadiusBasedOnDifficulty(difficulty!);
 
   final distance = distanceInMeters(guessLocation!, perspektivaLocation!);

@@ -24,20 +24,22 @@ import 'package:perspektiva/osm/open_street_map.dart';
 import 'package:latlong2/latlong.dart' as latlong2;
 
 class SubmitGuess2Widget extends StatefulWidget {
-  const SubmitGuess2Widget({
-    super.key,
-    required this.perspektivaGuessURL,
-    required this.perspektivaLocation,
-    required this.perspektivaID,
-    bool? isCorrectGuess,
-    required this.perspektivaDocRef,
-  }) : isCorrectGuess = isCorrectGuess ?? false;
+  const SubmitGuess2Widget(
+      {super.key,
+      required this.perspektivaGuessURL,
+      required this.perspektivaLocation,
+      required this.perspektivaID,
+      bool? isCorrectGuess,
+      required this.perspektivaDocRef,
+      required this.onMarkerLocationChanged})
+      : isCorrectGuess = isCorrectGuess ?? false;
 
   final String? perspektivaGuessURL;
   final latlong2.LatLng? perspektivaLocation;
   final String? perspektivaID;
   final bool isCorrectGuess;
   final PerspektivasRecord? perspektivaDocRef;
+  final void Function(latlong2.LatLng newLocation) onMarkerLocationChanged;
 
   @override
   State<SubmitGuess2Widget> createState() => _SubmitGuess2WidgetState();
@@ -47,9 +49,17 @@ class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
     with TickerProviderStateMixin {
   late SubmitGuess2Model _model;
 
+  latlong2.LatLng? markerLocation;
+
+  void updateMarkerLocation(latlong2.LatLng newLocation) {
+    setState(() {
+      markerLocation = newLocation;
+    });
+  }
+
+  @override
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  LatLng currentUserLocationValue =
-      LatLng(0.0, 0.0); /*TODO: is this okay? default init*/
+  latlong2.LatLng currentUserLocationValue = latlong2.LatLng(0.0, 0.0);
 
   final animationsMap = <String, AnimationInfo>{};
 
@@ -62,26 +72,20 @@ class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
         parameters: {'screen_name': 'SubmitGuess_2'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('SUBMIT_GUESS_2_SubmitGuess_2_ON_INIT_STA');
-
       currentUserLocationValue =
           await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
 
-      logFirebaseEvent('SubmitGuess_2_haptic_feedback');
       HapticFeedback.vibrate();
 
       if (functions.isPointInsideCircel(
           widget.perspektivaLocation!,
           FFAppState().LatLngList.first,
           widget.perspektivaDocRef!.difficulty)) {
-        logFirebaseEvent('SubmitGuess_2_custom_action');
         _model.photoCompareResult = await actions.comparePhotos(
           widget.perspektivaDocRef!.perspektivaPicture,
           widget.perspektivaGuessURL!,
         );
       } else {
-        logFirebaseEvent('SubmitGuess_2_navigate_to');
-
         context.pushNamed(
           'Details',
           queryParameters: {
@@ -108,7 +112,6 @@ class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
       }
 
       // CorrectGuessAdd
-      logFirebaseEvent('SubmitGuess_2_CorrectGuessAdd');
 
       await GuessRecord.collection.doc().set(createGuessRecordData(
             guessPicture: widget.perspektivaGuessURL,
@@ -117,7 +120,6 @@ class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
             perspektivaId: widget.perspektivaID,
           ));
       // CorrectPerspektivaUserGuess
-      logFirebaseEvent('SubmitGuess_2_CorrectPerspektivaUserGues');
 
       await PerspektivaUserGuessRecord.collection
           .doc()
@@ -128,7 +130,6 @@ class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
             created: getCurrentTimestamp,
             guessId: '0',
           ));
-      logFirebaseEvent('SubmitGuess_2_navigate_to');
 
       context.pushNamed(
         'Details',
@@ -192,6 +193,7 @@ class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
+
     if (currentUserLocationValue == null) {
       return Container(
         color: FlutterFlowTheme.of(context).primaryBackground,
@@ -261,8 +263,6 @@ class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  logFirebaseEvent('SUBMIT_GUESS_2_PAGE_Icon_2gzu1lyl_ON_TAP');
-                  logFirebaseEvent('Icon_navigate_back');
                   context.safePop();
                 },
                 child: Icon(
@@ -308,8 +308,16 @@ class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
                                     initialLocation: currentUserLocationValue,
                                     perspektivaLocation:
                                         widget.perspektivaDocRef?.location,
-                                    dificulty:
+                                    difficulty:
                                         widget.perspektivaDocRef?.difficulty,
+                                    onLocationChanged:
+                                        (latlong2.LatLng newLocation) {
+                                      setState(() {
+                                        updateMarkerLocation(newLocation);
+                                        //FFAppState().LatLngList = [newLocation];
+                                      }); /*TODO: STUCK ON THIS add marker*/
+                                    },
+
                                     /*
                                   markers:
                                       FFAppState().LatLngList.map((marker) {
@@ -377,11 +385,6 @@ GOOGLE MAPS --->
                                   child: const Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 3.0),
-                                    child: FaIcon(
-                                      FontAwesomeIcons.mapPin,
-                                      color: Color(0xFFFDFDFD),
-                                      size: 30.0,
-                                    ),
                                   ),
                                 ),
                               ),
@@ -421,25 +424,15 @@ GOOGLE MAPS --->
 
                                             /*add BUTTON*/
                                             onPressed: () async {
-                                              logFirebaseEvent(
-                                                  'SUBMIT_GUESS_2_add_location_sharp_ICN_ON');
-                                              logFirebaseEvent(
-                                                  'IconButton_update_app_state');
-
                                               FFAppState().LatLngList = [];
 
                                               setState(() {});
 
-                                              logFirebaseEvent(
-                                                  'IconButton_update_app_state');
-                                              if (functions.isPointInsideCircel(
-                                                  currentUserLocationValue!,
-                                                  _model.googleMapsCenter!,
-                                                  widget.perspektivaDocRef!
-                                                      .difficulty)) {
-                                                FFAppState().addToLatLngList(
-                                                    _model.googleMapsCenter!);
-                                              } else {
+                                              FFAppState().addToLatLngList(
+                                                  markerLocation!);
+
+                                              /*else {OLD LOGIC - if the marker was outside the submit button would move a litle
+                                                
                                                 print('OUTSIDE');
 
                                                 // Display the alert message
@@ -477,6 +470,7 @@ GOOGLE MAPS --->
                                                     .controller
                                                     .forward(from: 0.0);
                                               }
+                                              */
                                               setState(() {});
                                             },
                                           ).animateOnActionTrigger(
@@ -525,9 +519,6 @@ GOOGLE MAPS --->
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  logFirebaseEvent(
-                                      'SUBMIT_GUESS_2_Image_pxo1b421_ON_TAP');
-                                  logFirebaseEvent('Image_expand_image');
                                   await Navigator.push(
                                     context,
                                     PageTransition(
@@ -579,16 +570,12 @@ GOOGLE MAPS --->
                       child: FFButtonWidget(
                         onPressed: () async {
                           if (FFAppState().LatLngList.isNotEmpty) {
-                            logFirebaseEvent(
-                                'SUBMIT_GUESS_2_PAGE_SUBMIT_BTN_ON_TAP');
-                            currentUserLocationValue =
-                                await getCurrentUserLocation(
-                                    defaultLocation: LatLng(0.0, 0.0));
                             var shouldSetState = false;
-                            logFirebaseEvent('Button_haptic_feedback');
-                            HapticFeedback.vibrate();
+
+                            //HapticFeedback.vibrate();
+/*TODO: add animations
                             if (FFAppState().LatLngList.isEmpty) {
-                              logFirebaseEvent('Button_widget_animation');
+                              
                               if (animationsMap[
                                       'iconButtonOnActionTriggerAnimation'] !=
                                   null) {
@@ -600,22 +587,25 @@ GOOGLE MAPS --->
                               if (shouldSetState) setState(() {});
                               return;
                             }
+*/
+                            print("NOT EMPTY");
+
                             if (functions.isPointInsideCircel(
-                                widget.perspektivaLocation!,
+                                widget.perspektivaDocRef?.location,
                                 FFAppState().LatLngList.first,
                                 widget.perspektivaDocRef!.difficulty)) {
-                              logFirebaseEvent('Button_custom_action');
+                              /* logFirebaseEvent('Button_custom_action');
                               _model.photoCompareResultCopy =
                                   await actions.comparePhotos(
                                 widget.perspektivaDocRef!.perspektivaPicture,
                                 widget.perspektivaGuessURL!,
-                              );
+                              );*/
+                              print("THE POINT IS IN THE CIRCLE");
                               shouldSetState = true;
                             } else {
-                              logFirebaseEvent('Button_update_app_state');
+                              print("THE POINT IS NOT IN THE CIRCLE");
                               FFAppState().LatLngList = [];
                               setState(() {});
-                              logFirebaseEvent('Button_navigate_to');
 
                               context.pushNamed(
                                 'Details',
@@ -645,7 +635,6 @@ GOOGLE MAPS --->
                             }
 
                             // CorrectGuessAdd
-                            logFirebaseEvent('Button_CorrectGuessAdd');
 
                             await GuessRecord.collection
                                 .doc()
@@ -656,8 +645,6 @@ GOOGLE MAPS --->
                                   perspektivaId: widget.perspektivaID,
                                 ));
                             // CorrectPerspektivaUserGuess
-                            logFirebaseEvent(
-                                'Button_CorrectPerspektivaUserGuess');
 
                             await PerspektivaUserGuessRecord.collection
                                 .doc()
@@ -668,10 +655,9 @@ GOOGLE MAPS --->
                                   created: getCurrentTimestamp,
                                   guessId: '0',
                                 ));
-                            logFirebaseEvent('Button_update_app_state');
+
                             FFAppState().LatLngList = [];
                             setState(() {});
-                            logFirebaseEvent('Button_navigate_to');
 
                             context.pushNamed(
                               'Details',

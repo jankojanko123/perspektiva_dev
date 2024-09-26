@@ -11,6 +11,8 @@ class SubmitGuess2Model extends FlutterFlowModel<SubmitGuess2Widget> {
   double? photoCompareResult;
   // State field(s) for GoogleMap widget.
   latlong2.LatLng? googleMapsCenter;
+  latlong2.LatLng? guessMarkerLocation;
+
   final googleMapsController = Completer<GoogleMapController>();
   // Stores action output result for [Custom Action - comparePhotos] action in Button widget.
   double? photoCompareResultCopy;

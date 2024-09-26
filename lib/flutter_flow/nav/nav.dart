@@ -267,6 +267,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   'perspektivaDocRef',
                   ParamType.Document,
                 ),
+                onMarkerLocationChanged: (newLocation) {},
               ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
