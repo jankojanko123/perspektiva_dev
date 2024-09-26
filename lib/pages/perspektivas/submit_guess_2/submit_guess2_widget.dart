@@ -588,7 +588,6 @@ GOOGLE MAPS --->
                               return;
                             }
 */
-                            print("NOT EMPTY");
 
                             if (functions.isPointInsideCircel(
                                 widget.perspektivaDocRef?.location,
@@ -600,10 +599,9 @@ GOOGLE MAPS --->
                                 widget.perspektivaDocRef!.perspektivaPicture,
                                 widget.perspektivaGuessURL!,
                               );*/
-                              print("THE POINT IS IN THE CIRCLE");
+
                               shouldSetState = true;
                             } else {
-                              print("THE POINT IS NOT IN THE CIRCLE");
                               FFAppState().LatLngList = [];
                               setState(() {});
 

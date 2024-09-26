@@ -4,6 +4,7 @@ import 'package:latlong2/latlong.dart'; // Note: Import latlong2 package
 import 'package:perspektiva/flutter_flow/flutter_flow_util.dart';
 import 'package:perspektiva/pages/perspektivas/submit_guess_2/submit_guess2_model.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:perspektiva/font/font_test_icons.dart';
 
 class OSMMap extends StatefulWidget {
   const OSMMap({
@@ -30,6 +31,8 @@ class _OSMMapState extends State<OSMMap> {
   late LatLng circleLocation;
   late double radius;
 
+  late Color circleBorderColor = const Color.fromARGB(255, 33, 43, 216);
+
   late MapController _mapController;
   LatLng? _currentLocation;
 
@@ -41,6 +44,13 @@ class _OSMMapState extends State<OSMMap> {
     markerLocation = initialLocation;
     circleLocation = initialLocation!;
     radius = functions.getRadiusBasedOnDifficulty(difficulty ?? 0);
+
+    _mapController = MapController();
+
+    // Pan to the initial location on initial load
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _mapController.move(initialLocation!, 16.0);
+    });
   }
 
   void setCurrentLocation(LatLng latLng) {
@@ -64,11 +74,11 @@ class _OSMMapState extends State<OSMMap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('OpenStreetMap Example')),
       body: FlutterMap(
+        mapController: _mapController,
         options: MapOptions(
           center: markerLocation,
-          zoom: 16.0,
+          zoom: 1.0,
           onPositionChanged: (MapPosition position, bool hasGesture) {
             if (hasGesture) {
               _restrictMovement(position.center!);
@@ -86,8 +96,8 @@ class _OSMMapState extends State<OSMMap> {
               CircleMarker(
                 point: circleLocation,
                 color: const Color.fromARGB(255, 243, 33, 68).withOpacity(0.3),
-                borderColor: Colors.black,
-                borderStrokeWidth: 1,
+                borderColor: circleBorderColor,
+                borderStrokeWidth: 3,
                 useRadiusInMeter: true,
                 radius: radius,
               ),
@@ -108,6 +118,8 @@ class _OSMMapState extends State<OSMMap> {
                 width: 80.0,
                 height: 80.0,
                 point: markerLocation!,
+                anchorPos: AnchorPos.exactly(Anchor(
+                    56.0, 57.0)), // Adjust the anchor position by 5 pixels,
                 builder: (ctx) => GestureDetector(
                   onPanUpdate: (details) {
                     // Convert the drag details to a new LatLng position
@@ -115,11 +127,34 @@ class _OSMMapState extends State<OSMMap> {
                     _restrictMovement(newPosition);
                   },
                   child: Icon(
-                    Icons.location_pin,
-                    color: Colors.red,
+                    FontTest.pointer_svgrepo_com,
+                    color: const Color.fromARGB(255, 9, 22, 84),
                     size: 40,
+                    shadows: [
+                      Shadow(
+                        offset: Offset(-1.0, 3.0),
+                        blurRadius: 2.0,
+                        color: Color.fromARGB(128, 0, 0, 0),
+                      ),
+                    ],
                   ),
                 ),
+              ),
+              Marker(
+                width: 80.0,
+                height: 80.0,
+                point: markerLocation!,
+                builder: (ctx) => GestureDetector(
+                    onPanUpdate: (details) {
+                      // Convert the drag details to a new LatLng position
+                      final newPosition = _calculateNewPosition(details);
+                      _restrictMovement(newPosition);
+                    },
+                    child: Icon(
+                      Icons.data_saver_on_sharp,
+                      color: Color.fromARGB(255, 255, 0, 0),
+                      size: 5,
+                    )),
               ),
             ],
           ),
@@ -140,6 +175,7 @@ class _OSMMapState extends State<OSMMap> {
         setState(() {
           markerLocation = newPosition;
           setCurrentLocation(newPosition);
+          circleBorderColor = const Color.fromARGB(255, 33, 43, 216);
         });
       } else {
         // Calculate the closest point within the circle to the new position
@@ -153,6 +189,7 @@ class _OSMMapState extends State<OSMMap> {
         // Set the map center to the closest point within the circle
         setState(() {
           markerLocation = closestPoint;
+          circleBorderColor = Colors.red;
         });
       }
     }
@@ -170,5 +207,10 @@ class _OSMMapState extends State<OSMMap> {
   double calculateDistance(LatLng point1, LatLng point2) {
     final Distance distance = Distance();
     return distance.as(LengthUnit.Meter, point1, point2);
+  }
+
+  void _zoomIn() {
+    final zoom = _mapController.zoom + 1;
+    _mapController.move(_mapController.center, zoom);
   }
 }
