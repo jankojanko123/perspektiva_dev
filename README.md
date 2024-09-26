@@ -1,7 +1,5 @@
 # perspektiva
 
-A new Flutter project.
+well well well... maybe, the perspektiva is there.. 
 
-## Getting Started
 
-FlutterFlow projects are built to run on the Flutter _stable_ release.
