@@ -80,7 +80,8 @@ class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
       if (functions.isPointInsideCircel(
           widget.perspektivaLocation!,
           FFAppState().LatLngList.first,
-          widget.perspektivaDocRef!.difficulty)) {
+          functions.calculateRadius(widget.perspektivaDocRef!.difficulty,
+              widget.perspektivaDocRef!.difficultyTerrain, true))) {
         _model.photoCompareResult = await actions.comparePhotos(
           widget.perspektivaDocRef!.perspektivaPicture,
           widget.perspektivaGuessURL!,
@@ -310,6 +311,9 @@ class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
                                         widget.perspektivaDocRef?.location,
                                     difficulty:
                                         widget.perspektivaDocRef?.difficulty,
+                                    terrain_difficulty: widget
+                                        .perspektivaDocRef?.difficultyTerrain,
+                                    latlongMarkerList: FFAppState().LatLngList,
                                     onLocationChanged:
                                         (latlong2.LatLng newLocation) {
                                       setState(() {
@@ -592,7 +596,10 @@ GOOGLE MAPS --->
                             if (functions.isPointInsideCircel(
                                 widget.perspektivaDocRef?.location,
                                 FFAppState().LatLngList.first,
-                                widget.perspektivaDocRef!.difficulty)) {
+                                functions.calculateRadius(
+                                    widget.perspektivaDocRef!.difficulty,
+                                    widget.perspektivaDocRef!.difficultyTerrain,
+                                    false))) {
                               /* logFirebaseEvent('Button_custom_action');
                               _model.photoCompareResultCopy =
                                   await actions.comparePhotos(

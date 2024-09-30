@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart'; // Note: Import latlong2 package
@@ -11,12 +13,16 @@ class OSMMap extends StatefulWidget {
     required this.initialLocation,
     required this.perspektivaLocation,
     required this.difficulty,
+    required this.terrain_difficulty,
+    required this.latlongMarkerList,
     required this.onLocationChanged,
   });
 
   final LatLng initialLocation;
   final LatLng? perspektivaLocation;
   final int? difficulty;
+  final int? terrain_difficulty;
+  final List<LatLng> latlongMarkerList; //List<LatLng> _LatLngList = [];
   final void Function(LatLng newLocation) onLocationChanged;
   @override
   _OSMMapState createState() => _OSMMapState();
@@ -25,11 +31,16 @@ class OSMMap extends StatefulWidget {
 class _OSMMapState extends State<OSMMap> {
   LatLng? get initialLocation => widget.initialLocation;
   LatLng? get perspektivaLocation => widget.perspektivaLocation;
+
   int? get difficulty => widget.difficulty;
+  int? get terrain_difficulty => widget.terrain_difficulty;
+
+  List<LatLng>? get latlongMarkerList => widget.latlongMarkerList;
 
   late LatLng? markerLocation;
   late LatLng circleLocation;
-  late double radius;
+  late double radius_selectorBoundryField;
+  late double radius_perspektivaBoundryField;
 
   late Color circleBorderColor = const Color.fromARGB(255, 33, 43, 216);
 
@@ -43,7 +54,11 @@ class _OSMMapState extends State<OSMMap> {
 
     markerLocation = initialLocation;
     circleLocation = initialLocation!;
-    radius = functions.getRadiusBasedOnDifficulty(difficulty ?? 0);
+
+    radius_selectorBoundryField = functions.calculateRadius(
+        difficulty ?? 1, terrain_difficulty ?? 1, true);
+    radius_perspektivaBoundryField = functions.calculateRadius(
+        difficulty ?? 1, terrain_difficulty ?? 1, false);
 
     _mapController = MapController();
 
@@ -99,7 +114,7 @@ class _OSMMapState extends State<OSMMap> {
                 borderColor: circleBorderColor,
                 borderStrokeWidth: 3,
                 useRadiusInMeter: true,
-                radius: radius,
+                radius: radius_selectorBoundryField,
               ),
               CircleMarker(
                 /*TODO: REMOVE! DEV HELP ONLY!*/
@@ -108,18 +123,36 @@ class _OSMMapState extends State<OSMMap> {
                 borderColor: Colors.black,
                 borderStrokeWidth: 1,
                 useRadiusInMeter: true,
-                radius: radius,
+                radius: radius_perspektivaBoundryField,
               ),
             ],
           ),
           MarkerLayer(
             markers: [
+              if (latlongMarkerList != null)
+                ...latlongMarkerList!.map((latLng) => Marker(
+                      width: 80.0,
+                      height: 80.0,
+                      point: latLng,
+                      builder: (ctx) => GestureDetector(
+                          onPanUpdate: (details) {
+                            // Convert the drag details to a new LatLng position
+                            final newPosition = _calculateNewPosition(details);
+                            _restrictMovement(newPosition);
+                          },
+                          child: Icon(
+                            Icons.circle,
+                            color: Color.fromARGB(255, 12, 40, 152),
+                            size: 7,
+                            weight: 0.1,
+                          )),
+                    )),
               Marker(
                 width: 80.0,
                 height: 80.0,
                 point: markerLocation!,
                 anchorPos: AnchorPos.exactly(Anchor(
-                    56.0, 57.0)), // Adjust the anchor position by 5 pixels,
+                    62.0, 64.0)), // Adjust the anchor position by 5 pixels,
                 builder: (ctx) => GestureDetector(
                   onPanUpdate: (details) {
                     // Convert the drag details to a new LatLng position
@@ -128,8 +161,8 @@ class _OSMMapState extends State<OSMMap> {
                   },
                   child: Icon(
                     FontTest.pointer_svgrepo_com,
-                    color: const Color.fromARGB(255, 9, 22, 84),
-                    size: 40,
+                    color: const Color.fromARGB(255, 104, 4, 192),
+                    size: 55,
                     shadows: [
                       Shadow(
                         offset: Offset(-1.0, 3.0),
@@ -152,7 +185,7 @@ class _OSMMapState extends State<OSMMap> {
                     },
                     child: Icon(
                       Icons.data_saver_on_sharp,
-                      color: Color.fromARGB(255, 255, 0, 0),
+                      color: Color.fromARGB(255, 0, 0, 0),
                       size: 5,
                     )),
               ),
@@ -164,11 +197,11 @@ class _OSMMapState extends State<OSMMap> {
   }
 
   void _restrictMovement(LatLng newPosition) {
-    if (circleLocation != null && radius != null) {
+    if (circleLocation != null && radius_selectorBoundryField != null) {
       final bool isInsideCircle = functions.isPointInsideCircel(
         circleLocation,
         newPosition,
-        difficulty ?? 0,
+        radius_selectorBoundryField,
       );
 
       if (isInsideCircle) {
@@ -183,8 +216,8 @@ class _OSMMapState extends State<OSMMap> {
         final double bearing = distance.bearing(circleLocation, newPosition);
 
         // Calculate the point on the circle's edge that is closest to the newPosition
-        final LatLng closestPoint =
-            distance.offset(circleLocation, radius, bearing);
+        final LatLng closestPoint = distance.offset(
+            circleLocation, radius_selectorBoundryField, bearing);
 
         // Set the map center to the closest point within the circle
         setState(() {

@@ -29,6 +29,7 @@ String returnProfileGreeting(DateTime timestamp) {
 
 double getRadiusBasedOnDifficulty(int difficulty) {
   double radius = 100;
+  //TODO: make this smarter and settable in the admin page
 
   switch (difficulty) {
     case 1:
@@ -40,25 +41,57 @@ double getRadiusBasedOnDifficulty(int difficulty) {
     case 3:
       radius = 25;
       break;
-    case 2:
+    case 4:
       radius = 15;
       break;
-    case 1:
+    case 5:
       radius = 10;
   }
 
   return radius;
 }
 
+/*Makes the selection circle a bit bigger*/
+double getTerrainDifficultyBonus(int terrain_difficulty) {
+  double bonus = 100;
+  //TODO: make this smarter and settable in the admin page
+
+  switch (terrain_difficulty) {
+    case 1:
+      bonus = 1;
+      break;
+    case 2:
+      bonus = 1.5;
+      break;
+    case 3:
+      bonus = 1.8;
+      break;
+    case 4:
+      bonus = 2;
+      break;
+    case 5:
+      bonus = 2.5;
+  }
+
+  return bonus;
+}
+
+double calculateRadius(int difficulty, int terrain_difficulty, bool useBonus) {
+  if (useBonus == true) {
+    return getRadiusBasedOnDifficulty(
+            difficulty ?? 1) * /*This gets used for the selector boundry field*/
+        getTerrainDifficultyBonus(terrain_difficulty ?? 1);
+  } else {
+    return getRadiusBasedOnDifficulty(
+        difficulty ?? 1); /*This gets used for the perspektiva boundry field*/
+  }
+}
+
 bool isPointInsideCircel(
   LatLng? perspektivaLocation,
   LatLng? guessLocation,
-  int? difficulty,
+  double radius,
 ) {
-  print("GETS HERE");
-
-  double radius = getRadiusBasedOnDifficulty(difficulty!);
-
   final distance = distanceInMeters(guessLocation!, perspektivaLocation!);
   return distance < radius;
 }
