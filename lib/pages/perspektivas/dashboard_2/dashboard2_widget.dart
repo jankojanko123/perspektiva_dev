@@ -57,21 +57,23 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
         ),
       );
       logFirebaseEvent('Dashboard_2_firestore_query');
-      _model.allGuessedByUserPerTown = await queryPerspektivasRecordOnce(
-        queryBuilder: (perspektivasRecord) => perspektivasRecord
-            .where(
-              'town_zip',
-              isEqualTo: widget.townZip,
-            )
-            .whereIn(
-                'perspektiva_uuid',
-                _model.perspektivaGuessesByUser
-                    ?.map((e) => valueOrDefault<String>(
-                          e.perspektivaUuid,
-                          'a',
-                        ))
-                    .toList()),
-      );
+      if (_model.perspektivaGuessesByUser!.isNotEmpty) {
+        _model.allGuessedByUserPerTown = await queryPerspektivasRecordOnce(
+          queryBuilder: (perspektivasRecord) => perspektivasRecord
+              .where(
+                'town_zip',
+                isEqualTo: widget.townZip,
+              )
+              .whereIn(
+                  'perspektiva_uuid',
+                  _model.perspektivaGuessesByUser
+                      ?.map((e) => valueOrDefault<String>(
+                            e.perspektivaUuid,
+                            'a',
+                          ))
+                      .toList()),
+        );
+      }
       logFirebaseEvent('Dashboard_2_firestore_query');
       _model.allNotGuessedByUserPerTown = await queryPerspektivasRecordOnce(
         queryBuilder: (perspektivasRecord) => perspektivasRecord
@@ -193,7 +195,8 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
           ),
           actions: [
             Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
+              padding:
+                  const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
@@ -223,6 +226,7 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                /* TODO: ADD SEARCH IF NECESARY 
                 Padding(
                   padding:
                       const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 12.0),
@@ -300,8 +304,10 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                         _model.textControllerValidator.asValidator(context),
                   ),
                 ),
+                */
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 8.0),
                   child: Text(
                     'Your Collection',
                     style: FlutterFlowTheme.of(context).bodyLarge.override(
@@ -310,14 +316,16 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                         ),
                   ),
                 ),
+                /* TODO: ADD QUICK FILTER IF NEEDED
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
+                      
                       Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 8.0, 0.0, 8.0),
                         child: FlutterFlowChoiceChips(
                           options: const [
                             ChipData('Filter One'),
@@ -376,12 +384,14 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                           wrapped: false,
                         ),
                       ),
+                      
                     ]
                         .divide(const SizedBox(width: 8.0))
                         .addToStart(const SizedBox(width: 16.0))
                         .addToEnd(const SizedBox(width: 16.0)),
                   ),
                 ),
+                */
                 Container(
                   width: double.infinity,
                   height: 200.0,
@@ -416,11 +426,6 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                logFirebaseEvent(
-                                    'DASHBOARD_2_GuessedPerspektiva_ON_TAP');
-                                logFirebaseEvent(
-                                    'GuessedPerspektiva_navigate_to');
-
                                 context.pushNamed(
                                   'Details',
                                   queryParameters: {
@@ -477,8 +482,8 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            4.0, 0.0, 0.0, 4.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(4.0, 0.0, 0.0, 4.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           crossAxisAlignment:
@@ -525,7 +530,8 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                   color: FlutterFlowTheme.of(context).accent4,
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                   child: Text(
                     'Come back when the secret is unlocked!',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -535,8 +541,8 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 12.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      16.0, 4.0, 16.0, 12.0),
                   child: Container(
                     width: double.infinity,
                     height: 150.0,
@@ -630,7 +636,8 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                   color: FlutterFlowTheme.of(context).accent4,
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                   child: Text(
                     'Yet to be found in this town',
                     style: FlutterFlowTheme.of(context).titleMedium.override(
@@ -644,7 +651,8 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                 //
                 // The list view is shrink wrapped to prevent the page from having two scrollable elements. The parent column is the element that is scrollable and it provides a smooth user experience.
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                   child: Builder(
                     builder: (context) {
                       final allNotGuessed =
@@ -666,7 +674,8 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: allNotGuessed.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: 8.0),
+                        separatorBuilder: (_, __) =>
+                            const SizedBox(height: 8.0),
                         itemBuilder: (context, allNotGuessedIndex) {
                           final allNotGuessedItem =
                               allNotGuessed[allNotGuessedIndex];
