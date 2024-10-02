@@ -27,6 +27,8 @@ class DetailsWidget extends StatefulWidget {
     bool? perspektivaIsAlreadyGuessedByUser,
     bool? correctGuessOnBack,
     bool? postBack,
+    required this.townZip,
+    required this.townName,
     this.photoCompareResult,
   })  : perspektivaIsAlreadyGuessedByUser =
             perspektivaIsAlreadyGuessedByUser ?? false,
@@ -36,6 +38,8 @@ class DetailsWidget extends StatefulWidget {
   final String? perspektivaUUID;
   final bool perspektivaIsAlreadyGuessedByUser;
   final bool correctGuessOnBack;
+  final int? townZip;
+  final String? townName;
   final bool postBack;
   final double? photoCompareResult;
 
@@ -393,7 +397,43 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                   logFirebaseEvent(
                                       'DETAILS_PAGE_Icon_86l0iw8h_ON_TAP');
                                   logFirebaseEvent('Icon_navigate_back');
-                                  context.safePop();
+                                  //context.safePop();
+                                  /*context.pushNamedAuth(
+                                    'Dashboard',
+                                    true, // 'mounted' parameter
+                                    pathParameters: {
+                                      'townZip':
+                                          '1000', // Replace '12345' with the actual town zip value
+                                      'townName':
+                                          'Ljubljanaaa', // Replace 'SampleTown' with the actual town name
+                                    },
+                                  );*/
+                                  // Example of navigating to the '/dashboard' route with the 'townZip' parameter
+                                  context.pushNamedAuth(
+                                    'Dashboard_2', // Route name
+                                    true, // Mounted
+                                    queryParameters: {
+                                      'townZip': serializeParam(
+                                        widget.townZip,
+                                        ParamType.int,
+                                      ),
+                                      'townName': serializeParam(
+                                        widget.townName,
+                                        ParamType.String,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+/*
+                                  context.goNamedAuth(
+                                    'Dashboard_2', // Route name
+                                    context.mounted, // Mounted
+                                    pathParameters: {
+                                      'townZip':
+                                          '1000', // Ensure this matches the expected type
+                                      'townName':
+                                          'ExampleTown', // Ensure this matches the expected type
+                                    },
+                                  );*/
                                 },
                                 child: Icon(
                                   Icons.chevron_left_rounded,
@@ -784,7 +824,7 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                       ),
                                       Padding(
                                         padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0.0, 0.0, 0.0, 24.0),
+                                            .fromSTEB(0.0, 0.0, 0.0, 65.0),
                                         child: Text(
                                           valueOrDefault<String>(
                                             detailsPerspektivasRecord
@@ -925,6 +965,14 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                                     serializeParam(
                                                   detailsPerspektivasRecord,
                                                   ParamType.Document,
+                                                ),
+                                                'townZip': serializeParam(
+                                                  widget.townZip,
+                                                  ParamType.int,
+                                                ),
+                                                'townName': serializeParam(
+                                                  widget.townName,
+                                                  ParamType.String,
                                                 ),
                                               }.withoutNulls,
                                               extra: <String, dynamic>{

@@ -202,11 +202,18 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                 focusColor: Colors.transparent,
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
+                onTap: () {
+                  context.pushNamed('TownList2');
+                },
+
+/*
                 onTap: () async {
                   logFirebaseEvent('DASHBOARD_2_PAGE_Icon_k09v0drr_ON_TAP');
                   logFirebaseEvent('Icon_navigate_back');
                   context.safePop();
                 },
+
+                */
                 child: Icon(
                   Icons.chevron_left,
                   color: FlutterFlowTheme.of(context).secondaryText,
@@ -446,6 +453,14 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                                       true,
                                       ParamType.bool,
                                     ),
+                                    'townZip': serializeParam(
+                                      widget.townZip,
+                                      ParamType.int,
+                                    ),
+                                    'townName': serializeParam(
+                                      widget.townName,
+                                      ParamType.String,
+                                    ),
                                   }.withoutNulls,
                                 );
                               },
@@ -577,7 +592,7 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                                           ),
                                     ),
                                     Text(
-                                      'South America',
+                                      '',
                                       style: FlutterFlowTheme.of(context)
                                           .headlineMedium
                                           .override(
@@ -586,7 +601,7 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                                           ),
                                     ),
                                     Text(
-                                      'This region is known for it\'s high altitude growing, fruitful environment and robust farms.',
+                                      '',
                                       style: FlutterFlowTheme.of(context)
                                           .labelSmall
                                           .override(
@@ -722,6 +737,14 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                                       'postBack': serializeParam(
                                         false,
                                         ParamType.bool,
+                                      ),
+                                      'townZip': serializeParam(
+                                        widget.townZip,
+                                        ParamType.int,
+                                      ),
+                                      'townName': serializeParam(
+                                        widget.townName,
+                                        ParamType.String,
                                       ),
                                     }.withoutNulls,
                                   );

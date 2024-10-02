@@ -185,6 +185,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   'photoCompareResult',
                   ParamType.double,
                 ),
+                townZip: params.getParam('townZip', ParamType.int),
+                townName: params.getParam('townName', ParamType.String),
               ),
             ),
             FFRoute(
@@ -266,6 +268,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 perspektivaDocRef: params.getParam(
                   'perspektivaDocRef',
                   ParamType.Document,
+                ),
+                townZip: params.getParam(
+                  'townZip',
+                  ParamType.int,
+                ),
+                townName: params.getParam(
+                  'townName',
+                  ParamType.String,
                 ),
                 onMarkerLocationChanged: (newLocation) {},
               ),

@@ -24,20 +24,24 @@ import 'package:perspektiva/osm/open_street_map.dart';
 import 'package:latlong2/latlong.dart' as latlong2;
 
 class SubmitGuess2Widget extends StatefulWidget {
-  const SubmitGuess2Widget(
-      {super.key,
-      required this.perspektivaGuessURL,
-      required this.perspektivaLocation,
-      required this.perspektivaID,
-      bool? isCorrectGuess,
-      required this.perspektivaDocRef,
-      required this.onMarkerLocationChanged})
-      : isCorrectGuess = isCorrectGuess ?? false;
+  const SubmitGuess2Widget({
+    super.key,
+    required this.perspektivaGuessURL,
+    required this.perspektivaLocation,
+    required this.perspektivaID,
+    bool? isCorrectGuess,
+    required this.perspektivaDocRef,
+    required this.onMarkerLocationChanged,
+    required this.townZip,
+    required this.townName,
+  }) : isCorrectGuess = isCorrectGuess ?? false;
 
   final String? perspektivaGuessURL;
   final latlong2.LatLng? perspektivaLocation;
   final String? perspektivaID;
   final bool isCorrectGuess;
+  final int? townZip;
+  final String? townName;
   final PerspektivasRecord? perspektivaDocRef;
   final void Function(latlong2.LatLng newLocation) onMarkerLocationChanged;
 
@@ -254,7 +258,7 @@ class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
               ),
             ].divide(const SizedBox(height: 4.0)),
           ),
-          actions: [
+          /*actions: [
             Padding(
               padding:
                   const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
@@ -274,6 +278,7 @@ class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
               ),
             ),
           ],
+          */
           centerTitle: false,
           toolbarHeight: 72.0,
           elevation: 0.0,
@@ -632,6 +637,14 @@ GOOGLE MAPS --->
                                     true,
                                     ParamType.bool,
                                   ),
+                                  'townZip': serializeParam(
+                                    widget.townZip,
+                                    ParamType.int,
+                                  ),
+                                  'townName': serializeParam(
+                                    widget.townName,
+                                    ParamType.String,
+                                  ),
                                 }.withoutNulls,
                               );
 
@@ -683,6 +696,14 @@ GOOGLE MAPS --->
                                 'postBack': serializeParam(
                                   true,
                                   ParamType.bool,
+                                ),
+                                'townZip': serializeParam(
+                                  widget.townZip,
+                                  ParamType.int,
+                                ),
+                                'townName': serializeParam(
+                                  widget.townName,
+                                  ParamType.String,
                                 ),
                               }.withoutNulls,
                             );
