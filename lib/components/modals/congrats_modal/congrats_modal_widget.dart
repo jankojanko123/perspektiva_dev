@@ -71,12 +71,13 @@ class _CongratsModalWidgetState extends State<CongratsModalWidget> {
               Lottie.network(
                 'https://lottie.host/cec1feda-158e-4fa8-8590-0d02da890896/6c6aUHkRLd.json',
                 width: 150.0,
-                height: 130.0,
+                height: 120.0,
                 fit: BoxFit.cover,
                 animate: true,
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
                 child: Text(
                   'You got it!',
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -86,7 +87,8 @@ class _CongratsModalWidgetState extends State<CongratsModalWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(0.0, 7.0, 0.0, 0.0),
                 child: Text(
                   'wooohoo!',
                   style: FlutterFlowTheme.of(context).labelSmall.override(

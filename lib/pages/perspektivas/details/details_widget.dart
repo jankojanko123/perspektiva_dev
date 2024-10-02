@@ -342,9 +342,10 @@ class _DetailsWidgetState extends State<DetailsWidget>
                   onTap: () async {
                     logFirebaseEvent('DETAILS_PAGE_Container_w04s1qm4_ON_TAP');
                     logFirebaseEvent('Container_alert_dialog');
-                    await showDialog(
+                    /*await showDialog(
                       context: context,
                       builder: (dialogContext) {
+
                         return Dialog(
                           elevation: 0,
                           insetPadding: EdgeInsets.zero,
@@ -356,8 +357,9 @@ class _DetailsWidgetState extends State<DetailsWidget>
                             child: const CongratsModalWidget(),
                           ),
                         );
+
                       },
-                    );
+                    );*/
                   },
                   child: Container(
                     width: double.infinity,
