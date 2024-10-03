@@ -86,10 +86,11 @@ class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
           FFAppState().LatLngList.first,
           functions.calculateRadius(widget.perspektivaDocRef!.difficulty,
               widget.perspektivaDocRef!.difficultyTerrain, true))) {
-        _model.photoCompareResult = await actions.comparePhotos(
+        _model.photoCompareResult =
+            50; /*  await actions.comparePhotos( ---- TODO: Add a photo AI comparer!
           widget.perspektivaDocRef!.perspektivaPicture,
           widget.perspektivaGuessURL!,
-        );
+        );*/
       } else {
         context.pushNamed(
           'Details',

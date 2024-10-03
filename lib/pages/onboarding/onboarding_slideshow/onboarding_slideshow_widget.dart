@@ -1,3 +1,5 @@
+import 'package:lottie/lottie.dart';
+
 import '/components/custom_appbar_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -168,9 +170,8 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
                                           ).animateOnPageLoad(animationsMap[
                                               'textOnPageLoadAnimation1']!),
                                           Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 36.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0.0, 0.0, 0.0, 36.0),
                                             child: Text(
                                               ' location..',
                                               style:
@@ -188,9 +189,8 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    24.0, 0.0, 24.0, 0.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(24.0, 0.0, 24.0, 0.0),
                                             child: Image.network(
                                               'https://images.unsplash.com/photo-1508913449378-01b9b8174e46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyNHx8bW91bnRhaW5zfGVufDB8fHx8MTcxNTg3NzExMnww&ixlib=rb-4.0.3&q=80&w=1080',
                                               height: 250.0,
@@ -218,9 +218,8 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
                                           ).animateOnPageLoad(animationsMap[
                                               'textOnPageLoadAnimation2']!),
                                           Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 30.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(0.0, 0.0, 0.0, 30.0),
                                             child: Text(
                                               'perspektiva',
                                               style: FlutterFlowTheme.of(
@@ -238,8 +237,6 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
                                             ),
                                           ),
                                           ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
                                             child: Image.network(
                                               'https://images.unsplash.com/photo-1590084334436-f87f190aa6f8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyNHx8bW9udW1lbnR8ZW58MHx8fHwxNzE2MTQyOTQ0fDA&ixlib=rb-4.0.3&q=80&w=1080',
                                               width: 171.0,
@@ -254,56 +251,204 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          FFButtonWidget(
-                                            onPressed: () async {
-                                              logFirebaseEvent(
-                                                  'ONBOARDING_SLIDESHOW_BEGIN_BTN_ON_TAP');
-                                              logFirebaseEvent(
-                                                  'Button_haptic_feedback');
-                                              HapticFeedback.lightImpact();
-                                              logFirebaseEvent(
-                                                  'Button_navigate_to');
+                                          Animate(
+                                            effects: [],
+                                            child: Container(
+                                              child: Stack(
+                                                alignment: Alignment
+                                                    .center, // Align the children to the center of the Stack
+                                                children: [
+                                                  // Lottie animation in the background
+                                                  GestureDetector(
+                                                    onTap: () async {
+                                                      // Handle the tap event on the Lottie animation
+                                                      logFirebaseEvent(
+                                                          'ONBOARDING_SLIDESHOW_LOTTIE_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Button_haptic_feedback');
+                                                      HapticFeedback
+                                                          .lightImpact();
+                                                      logFirebaseEvent(
+                                                          'Button_navigate_to');
 
-                                              context.pushNamed('SignIn');
-                                            },
-                                            text: 'Begin!',
-                                            options: FFButtonOptions(
-                                              height: 40.0,
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      24.0, 0.0, 24.0, 0.0),
-                                              iconPadding: const EdgeInsetsDirectional
-                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              textStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        color: Colors.white,
-                                                        letterSpacing: 0.0,
+                                                      context.pushNamed(
+                                                          'SignIn'); // Navigate to SignIn screen
+                                                    },
+                                                    child: Lottie.network(
+                                                      'https://lottie.host/99cab212-4aa7-4e03-8048-045fd210da46/7bLup9y182.json',
+                                                      width:
+                                                          300.0, // Adjust width and height to cover more space in the background
+                                                      height: 300.0,
+                                                      fit: BoxFit.cover,
+                                                      animate: true,
+                                                    ),
+                                                  ),
+                                                  // FFButton in the foreground
+                                                  Animate(
+                                                      child: GestureDetector(
+                                                    onTap: () async {
+                                                      logFirebaseEvent(
+                                                          'ONBOARDING_SLIDESHOW_BEGIN_BTN_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Button_haptic_feedback');
+                                                      HapticFeedback
+                                                          .lightImpact();
+                                                      logFirebaseEvent(
+                                                          'Button_navigate_to');
+
+                                                      context
+                                                          .pushNamed('SignIn');
+                                                    },
+                                                    child: Container(
+                                                      color: Colors
+                                                          .transparent, // <-- add transparent colour
+                                                      //height: 75,
+                                                      //width: 100,
+                                                      child: Animate(
+                                                        effects: [
+                                                          ScaleEffect(
+                                                            duration: 1000.ms,
+                                                          ),
+                                                          ShakeEffect(
+                                                              duration: 500.ms,
+                                                              delay: 2000.ms,
+                                                              hz: 3),
+                                                          ShimmerEffect()
+                                                        ],
+                                                        child: Text(
+                                                          'Lets go!',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
                                                       ),
-                                              elevation: 3.0,
-                                              borderSide: const BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1.0,
+                                                    ),
+                                                  )
+
+                                                      /*FFButtonWidget(
+                                                      onPressed: () async {
+                                                        logFirebaseEvent(
+                                                            'ONBOARDING_SLIDESHOW_BEGIN_BTN_ON_TAP');
+                                                        logFirebaseEvent(
+                                                            'Button_haptic_feedback');
+                                                        HapticFeedback
+                                                            .lightImpact();
+                                                        logFirebaseEvent(
+                                                            'Button_navigate_to');
+
+                                                        context.pushNamed(
+                                                            'SignIn');
+                                                      },
+                                                      text: 'Begin!',
+                                                      options: FFButtonOptions(
+                                                        height: 48.0,
+
+                                                        color:
+                                                            Colors.transparent,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleSmall
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Manrope',
+                                                                  color: Colors
+                                                                      .white,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                        elevation:
+                                                            0, // Give some elevation to the button
+                                                        borderSide:
+                                                            const BorderSide(
+                                                          color: Colors
+                                                              .transparent,
+                                                          width: 1.0,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12.0),
+                                                      ),
+                                                    ),*/
+                                                      ),
+                                                ],
                                               ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8.0),
+
+                                              /*
+                                              child: Column(
+                                                children: [
+                                                  Lottie.network(
+                                                    'https://lottie.host/99cab212-4aa7-4e03-8048-045fd210da46/7bLup9y182.json',
+                                                    width: 150.0,
+                                                    height: 120.0,
+                                                    fit: BoxFit.cover,
+                                                    animate: true,
+                                                  ),
+                                                  FFButtonWidget(
+                                                    onPressed: () async {
+                                                      logFirebaseEvent(
+                                                          'ONBOARDING_SLIDESHOW_BEGIN_BTN_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Button_haptic_feedback');
+                                                      HapticFeedback
+                                                          .lightImpact();
+                                                      logFirebaseEvent(
+                                                          'Button_navigate_to');
+
+                                                      context
+                                                          .pushNamed('SignIn');
+                                                    },
+                                                    text: 'Begin!',
+                                                    options: FFButtonOptions(
+                                                      height: 48.0,
+                                                      padding:
+                                                          const EdgeInsetsDirectional
+                                                              .fromSTEB(24.0,
+                                                              0.0, 24.0, 0.0),
+                                                      color: Colors
+                                                          .transparent, // Set to transparent to let gradient show
+                                                      textStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Manrope',
+                                                                color: Colors
+                                                                    .white,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                      elevation:
+                                                          0, // Remove button-specific elevation (handled by container shadow)
+                                                      borderSide:
+                                                          const BorderSide(
+                                                        color:
+                                                            Colors.transparent,
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12.0),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),*/
                                             ),
-                                          ),
+                                          )
                                         ],
                                       ),
                                     ],
                                   ),
                                 ),
                                 Align(
-                                  alignment: const AlignmentDirectional(0.0, 1.0),
+                                  alignment:
+                                      const AlignmentDirectional(0.0, 1.0),
                                   child: Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 10.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 10.0),
                                     child: smooth_page_indicator
                                         .SmoothPageIndicator(
                                       controller: _model.pageViewController ??=
@@ -314,7 +459,8 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
                                         await _model.pageViewController!
                                             .animateToPage(
                                           i,
-                                          duration: const Duration(milliseconds: 500),
+                                          duration:
+                                              const Duration(milliseconds: 500),
                                           curve: Curves.ease,
                                         );
                                         setState(() {});

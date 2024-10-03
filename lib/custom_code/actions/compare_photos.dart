@@ -8,7 +8,7 @@ import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
-
+/*
 import 'package:image_compare/image_compare.dart';
 import 'package:http/http.dart' as http;
 
@@ -64,3 +64,4 @@ Future<double> comparePhotosInnerFunction(
   return networkResult;
 }
 // End custom action code
+*/

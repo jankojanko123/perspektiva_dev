@@ -100,9 +100,15 @@ class _SplashWidgetState extends State<SplashWidget>
                             color: FlutterFlowTheme.of(context).primary,
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: Image.network(
-                                'https://images.unsplash.com/photo-1489549132488-d00b7eee80f1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxjb29sfGVufDB8fHx8MTcxNTk3ODQ2OXww&ixlib=rb-4.0.3&q=80&w=1080',
+                              image: Image.asset(
+                                'assets/images/Perslogo.png',
+                                fit: BoxFit.cover,
                               ).image,
+
+/*
+                                  Image.network(
+                                'https://images.unsplash.com/photo-1489549132488-d00b7eee80f1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxjb29sfGVufDB8fHx8MTcxNTk3ODQ2OXww&ixlib=rb-4.0.3&q=80&w=1080',
+                              ).image,*/
                             ),
                             borderRadius: BorderRadius.circular(32.0),
                             shape: BoxShape.rectangle,
@@ -111,8 +117,8 @@ class _SplashWidgetState extends State<SplashWidget>
                       ).animateOnPageLoad(
                           animationsMap['containerOnPageLoadAnimation']!),
                       Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 24.0, 0.0, 0.0),
                         child: RichText(
                           textScaler: MediaQuery.of(context).textScaler,
                           text: TextSpan(
@@ -154,7 +160,8 @@ class _SplashWidgetState extends State<SplashWidget>
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 12.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 12.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -171,10 +178,10 @@ class _SplashWidgetState extends State<SplashWidget>
                       options: FFButtonOptions(
                         width: double.infinity,
                         height: 50.0,
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 0.0),
+                        iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
