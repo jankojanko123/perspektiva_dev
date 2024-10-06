@@ -83,8 +83,8 @@ class _OnboardingCreateAccountWidgetState
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 24.0, 0.0, 0.0),
                     child: Text(
                       'Create an account',
                       style: FlutterFlowTheme.of(context).displaySmall.override(
@@ -287,7 +287,9 @@ class _OnboardingCreateAccountWidgetState
                                 controller: _model.passwordTextController,
                                 focusNode: _model.passwordFocusNode,
                                 autofocus: false,
-                                autofillHints: const [AutofillHints.newPassword],
+                                autofillHints: const [
+                                  AutofillHints.newPassword
+                                ],
                                 textInputAction: TextInputAction.done,
                                 obscureText: !_model.passwordVisibility,
                                 decoration: InputDecoration(
@@ -362,8 +364,8 @@ class _OnboardingCreateAccountWidgetState
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 24.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
                         logFirebaseEvent(
@@ -395,16 +397,16 @@ class _OnboardingCreateAccountWidgetState
 
                         logFirebaseEvent('Button_navigate_to');
 
-                        context.pushNamedAuth('TownList', context.mounted);
+                        context.pushNamedAuth('TownList2', context.mounted);
                       },
                       text: 'Create Account',
                       options: FFButtonOptions(
                         width: double.infinity,
                         height: 50.0,
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 0.0),
+                        iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -421,8 +423,8 @@ class _OnboardingCreateAccountWidgetState
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 12.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,

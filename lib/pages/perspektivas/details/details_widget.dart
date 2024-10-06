@@ -52,7 +52,7 @@ class _DetailsWidgetState extends State<DetailsWidget>
   late DetailsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  late ShakeDetector shakeDetector;
+  // late ShakeDetector shakeDetector;
   var shakeActionInProgress = false;
   var hasImageTriggered = false;
   final animationsMap = <String, AnimationInfo>{};
@@ -107,7 +107,7 @@ class _DetailsWidgetState extends State<DetailsWidget>
         );
       }
     });
-
+/*
     // On shake action.
     shakeDetector = ShakeDetector.autoStart(
       onPhoneShake: () async {
@@ -140,7 +140,7 @@ class _DetailsWidgetState extends State<DetailsWidget>
       },
       shakeThresholdGravity: 1.5,
     );
-
+*/
     animationsMap.addAll({
       'imageOnPageLoadAnimation': AnimationInfo(
         loop: true,
@@ -284,7 +284,7 @@ class _DetailsWidgetState extends State<DetailsWidget>
   void dispose() {
     _model.dispose();
 
-    shakeDetector.stopListening();
+    //shakeDetector.stopListening();
     super.dispose();
   }
 
