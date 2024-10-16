@@ -129,6 +129,8 @@ dependencies:
   latlong2: ^0.8.1   
   flutter_launcher_icons: ^0.14.1
   percent_indicator: ^4.2.3
+  flutter_blurhash: ^0.8.2
+  blurhash_ffi: ^1.2.6
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

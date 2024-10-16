@@ -78,17 +78,13 @@ class PerspektivasRecord extends FirestoreRecord {
     _perspektivaUuid = snapshotData['perspektiva_uuid'] as String?;
   }
 
-  static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('perspektivas');
+  static CollectionReference get collection => FirebaseFirestore.instance.collection('perspektivas');
 
-  static Stream<PerspektivasRecord> getDocument(DocumentReference ref) =>
-      ref.snapshots().map((s) => PerspektivasRecord.fromSnapshot(s));
+  static Stream<PerspektivasRecord> getDocument(DocumentReference ref) => ref.snapshots().map((s) => PerspektivasRecord.fromSnapshot(s));
 
-  static Future<PerspektivasRecord> getDocumentOnce(DocumentReference ref) =>
-      ref.get().then((s) => PerspektivasRecord.fromSnapshot(s));
+  static Future<PerspektivasRecord> getDocumentOnce(DocumentReference ref) => ref.get().then((s) => PerspektivasRecord.fromSnapshot(s));
 
-  static PerspektivasRecord fromSnapshot(DocumentSnapshot snapshot) =>
-      PerspektivasRecord._(
+  static PerspektivasRecord fromSnapshot(DocumentSnapshot snapshot) => PerspektivasRecord._(
         snapshot.reference,
         mapFromFirestore(snapshot.data() as Map<String, dynamic>),
       );
@@ -100,16 +96,13 @@ class PerspektivasRecord extends FirestoreRecord {
       PerspektivasRecord._(reference, mapFromFirestore(data));
 
   @override
-  String toString() =>
-      'PerspektivasRecord(reference: ${reference.path}, data: $snapshotData)';
+  String toString() => 'PerspektivasRecord(reference: ${reference.path}, data: $snapshotData)';
 
   @override
   int get hashCode => reference.path.hashCode;
 
   @override
-  bool operator ==(other) =>
-      other is PerspektivasRecord &&
-      reference.path.hashCode == other.reference.path.hashCode;
+  bool operator ==(other) => other is PerspektivasRecord && reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createPerspektivasRecordData({
@@ -123,6 +116,7 @@ Map<String, dynamic> createPerspektivasRecordData({
   int? difficultyTerrain,
   int? townZip,
   String? perspektivaUuid,
+  String? hashed_picture,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -136,14 +130,14 @@ Map<String, dynamic> createPerspektivasRecordData({
       'difficulty_terrain': difficultyTerrain,
       'town_zip': townZip,
       'perspektiva_uuid': perspektivaUuid,
+      'hashed_picture': hashed_picture
     }.withoutNulls,
   );
 
   return firestoreData;
 }
 
-class PerspektivasRecordDocumentEquality
-    implements Equality<PerspektivasRecord> {
+class PerspektivasRecordDocumentEquality implements Equality<PerspektivasRecord> {
   const PerspektivasRecordDocumentEquality();
 
   @override

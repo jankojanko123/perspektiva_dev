@@ -30,8 +30,7 @@ class Dashboard2Widget extends StatefulWidget {
   State<Dashboard2Widget> createState() => _Dashboard2WidgetState();
 }
 
-class _Dashboard2WidgetState extends State<Dashboard2Widget>
-    with TickerProviderStateMixin {
+class _Dashboard2WidgetState extends State<Dashboard2Widget> with TickerProviderStateMixin {
   late Dashboard2Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -48,10 +47,8 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('DASHBOARD_2_Dashboard_2_ON_INIT_STATE');
       logFirebaseEvent('Dashboard_2_firestore_query');
-      _model.perspektivaGuessesByUser =
-          await queryPerspektivaUserGuessRecordOnce(
-        queryBuilder: (perspektivaUserGuessRecord) =>
-            perspektivaUserGuessRecord.where(
+      _model.perspektivaGuessesByUser = await queryPerspektivaUserGuessRecordOnce(
+        queryBuilder: (perspektivaUserGuessRecord) => perspektivaUserGuessRecord.where(
           'user_uid',
           isEqualTo: currentUserUid,
         ),
@@ -81,11 +78,7 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
               'town_zip',
               isEqualTo: widget.townZip,
             )
-            .whereNotIn(
-                'perspektiva_uuid',
-                _model.perspektivaGuessesByUser
-                    ?.map((e) => e.perspektivaUuid)
-                    .toList()),
+            .whereNotIn('perspektiva_uuid', _model.perspektivaGuessesByUser?.map((e) => e.perspektivaUuid).toList()),
       );
       logFirebaseEvent('Dashboard_2_update_app_state');
 
@@ -195,8 +188,7 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
           ),
           actions: [
             Padding(
-              padding:
-                  const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
+              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 20.0, 0.0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
@@ -313,8 +305,7 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                 ),
                 */
                 Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 8.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 8.0),
                   child: Text(
                     'Your Collection',
                     style: FlutterFlowTheme.of(context).bodyLarge.override(
@@ -405,8 +396,7 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                   decoration: const BoxDecoration(),
                   child: Builder(
                     builder: (context) {
-                      final allGuessed =
-                          _model.allGuessedByUserPerTown?.toList() ?? [];
+                      final allGuessed = _model.allGuessedByUserPerTown?.toList() ?? [];
                       if (allGuessed.isEmpty) {
                         return const NothingfoundyetWidget();
                       }
@@ -425,8 +415,7 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                         itemBuilder: (context, allGuessedIndex) {
                           final allGuessedItem = allGuessed[allGuessedIndex];
                           return Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 4.0, 0.0, 12.0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 12.0),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -440,8 +429,7 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                                       allGuessedItem.perspektivaUuid,
                                       ParamType.String,
                                     ),
-                                    'perspektivaIsAlreadyGuessedByUser':
-                                        serializeParam(
+                                    'perspektivaIsAlreadyGuessedByUser': serializeParam(
                                       true,
                                       ParamType.bool,
                                     ),
@@ -468,12 +456,10 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                                 width: 190.0,
                                 height: 100.0,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
+                                  color: FlutterFlowTheme.of(context).secondaryBackground,
                                   borderRadius: BorderRadius.circular(8.0),
                                   border: Border.all(
-                                    color:
-                                        FlutterFlowTheme.of(context).secondary,
+                                    color: FlutterFlowTheme.of(context).secondary,
                                     width: 1.0,
                                   ),
                                 ),
@@ -481,13 +467,11 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                                   padding: const EdgeInsets.all(4.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Expanded(
                                         child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(4.0),
+                                          borderRadius: BorderRadius.circular(4.0),
                                           child: Image.network(
                                             allGuessedItem.perspektivaPicture,
                                             width: 300.0,
@@ -497,40 +481,30 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(4.0, 0.0, 0.0, 4.0),
+                                        padding: const EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 4.0),
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              allGuessedItem.difficulty
-                                                  .toString(),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelSmall
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                              allGuessedItem.difficulty.toString(),
+                                              style: FlutterFlowTheme.of(context).labelSmall.override(
+                                                    fontFamily: 'Manrope',
+                                                    letterSpacing: 0.0,
+                                                  ),
                                             ),
                                             Text(
                                               allGuessedItem.name,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyLarge
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                              style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                    fontFamily: 'Manrope',
+                                                    letterSpacing: 0.0,
+                                                  ),
                                             ),
                                           ].divide(const SizedBox(height: 4.0)),
                                         ),
                                       ),
                                     ].divide(const SizedBox(height: 8.0)),
-                                  ).animateOnPageLoad(animationsMap[
-                                      'columnOnPageLoadAnimation']!),
+                                  ).animateOnPageLoad(animationsMap['columnOnPageLoadAnimation']!),
                                 ),
                               ),
                             ),
@@ -545,8 +519,7 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                   color: FlutterFlowTheme.of(context).accent4,
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                   child: Text(
                     'Come back when the secret is unlocked!',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -556,8 +529,7 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(
-                      16.0, 4.0, 16.0, 12.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 12.0),
                   child: Container(
                     width: double.infinity,
                     height: 150.0,
@@ -584,27 +556,21 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                                   children: [
                                     Text(
                                       'Mistery perspektiva',
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelSmall
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).labelSmall.override(
                                             fontFamily: 'Manrope',
                                             letterSpacing: 0.0,
                                           ),
                                     ),
                                     Text(
                                       '',
-                                      style: FlutterFlowTheme.of(context)
-                                          .headlineMedium
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).headlineMedium.override(
                                             fontFamily: 'Urbanist',
                                             letterSpacing: 0.0,
                                           ),
                                     ),
                                     Text(
                                       '',
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelSmall
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).labelSmall.override(
                                             fontFamily: 'Manrope',
                                             letterSpacing: 0.0,
                                           ),
@@ -643,16 +609,14 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                         ),
                       ],
                     ),
-                  ).animateOnPageLoad(
-                      animationsMap['containerOnPageLoadAnimation1']!),
+                  ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation1']!),
                 ),
                 Divider(
                   thickness: 1.0,
                   color: FlutterFlowTheme.of(context).accent4,
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
                   child: Text(
                     'Yet to be found in this town',
                     style: FlutterFlowTheme.of(context).titleMedium.override(
@@ -666,12 +630,10 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                 //
                 // The list view is shrink wrapped to prevent the page from having two scrollable elements. The parent column is the element that is scrollable and it provides a smooth user experience.
                 Padding(
-                  padding:
-                      const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                   child: Builder(
                     builder: (context) {
-                      final allNotGuessed =
-                          _model.allNotGuessedByUserPerTown?.toList() ?? [];
+                      final allNotGuessed = _model.allNotGuessedByUserPerTown?.toList() ?? [];
                       if (allNotGuessed.isEmpty) {
                         return const Center(
                           child: EverythingfoundWidget(),
@@ -689,19 +651,15 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: allNotGuessed.length,
-                        separatorBuilder: (_, __) =>
-                            const SizedBox(height: 8.0),
+                        separatorBuilder: (_, __) => const SizedBox(height: 8.0),
                         itemBuilder: (context, allNotGuessedIndex) {
-                          final allNotGuessedItem =
-                              allNotGuessed[allNotGuessedIndex];
+                          final allNotGuessedItem = allNotGuessed[allNotGuessedIndex];
                           return Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                16.0, 4.0, 16.0, 0.0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 0.0),
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
+                                color: FlutterFlowTheme.of(context).secondaryBackground,
                                 borderRadius: BorderRadius.circular(8.0),
                                 border: Border.all(
                                   color: FlutterFlowTheme.of(context).alternate,
@@ -714,8 +672,7 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  logFirebaseEvent(
-                                      'DASHBOARD_2_PAGE_Column_icaq4ba8_ON_TAP');
+                                  logFirebaseEvent('DASHBOARD_2_PAGE_Column_icaq4ba8_ON_TAP');
                                   logFirebaseEvent('Column_navigate_to');
 
                                   context.pushNamed(
@@ -725,8 +682,7 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                                         allNotGuessedItem.perspektivaUuid,
                                         ParamType.String,
                                       ),
-                                      'perspektivaIsAlreadyGuessedByUser':
-                                          serializeParam(
+                                      'perspektivaIsAlreadyGuessedByUser': serializeParam(
                                         false,
                                         ParamType.bool,
                                       ),
@@ -771,38 +727,29 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                                       padding: const EdgeInsets.all(12.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            allNotGuessedItem.difficulty
-                                                .toString(),
-                                            style: FlutterFlowTheme.of(context)
-                                                .labelSmall
-                                                .override(
+                                            allNotGuessedItem.difficulty.toString(),
+                                            style: FlutterFlowTheme.of(context).labelSmall.override(
                                                   fontFamily: 'Manrope',
                                                   letterSpacing: 0.0,
                                                 ),
                                           ),
                                           Text(
                                             allNotGuessedItem.name,
-                                            style: FlutterFlowTheme.of(context)
-                                                .headlineMedium
-                                                .override(
+                                            style: FlutterFlowTheme.of(context).headlineMedium.override(
                                                   fontFamily: 'Urbanist',
                                                   letterSpacing: 0.0,
                                                 ),
                                           ),
                                           Text(
-                                            allNotGuessedItem.description
-                                                .maybeHandleOverflow(
+                                            allNotGuessedItem.description.maybeHandleOverflow(
                                               maxChars: 100,
                                               replacement: '…',
                                             ),
                                             maxLines: 3,
-                                            style: FlutterFlowTheme.of(context)
-                                                .labelSmall
-                                                .override(
+                                            style: FlutterFlowTheme.of(context).labelSmall.override(
                                                   fontFamily: 'Manrope',
                                                   letterSpacing: 0.0,
                                                 ),
@@ -813,8 +760,7 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget>
                                   ],
                                 ),
                               ),
-                            ).animateOnPageLoad(animationsMap[
-                                'containerOnPageLoadAnimation2']!),
+                            ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation2']!),
                           );
                         },
                       );

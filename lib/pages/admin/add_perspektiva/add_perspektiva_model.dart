@@ -24,9 +24,9 @@ class AddPerspektivaModel extends FlutterFlowModel<AddPerspektivaWidget> {
   // State field(s) for difficultyTerrainCount widget.
   int? difficultyTerrainCountValue;
   bool isDataUploading = false;
-  FFUploadedFile uploadedLocalFile =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
+  FFUploadedFile uploadedLocalFile = FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl = '';
+  String blurhashedPicture = '';
 
   // State field(s) for TownDropDown widget.
   int? townDropDownValue;
