@@ -19,6 +19,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shake/shake.dart';
 import 'details_model.dart';
 export 'details_model.dart';
+import 'package:blurhash_ffi/blurhash_ffi.dart';
 
 class DetailsWidget extends StatefulWidget {
   const DetailsWidget({
@@ -30,8 +31,7 @@ class DetailsWidget extends StatefulWidget {
     required this.townZip,
     required this.townName,
     this.photoCompareResult,
-  })  : perspektivaIsAlreadyGuessedByUser =
-            perspektivaIsAlreadyGuessedByUser ?? false,
+  })  : perspektivaIsAlreadyGuessedByUser = perspektivaIsAlreadyGuessedByUser ?? false,
         correctGuessOnBack = correctGuessOnBack ?? false,
         postBack = postBack ?? false;
 
@@ -47,8 +47,7 @@ class DetailsWidget extends StatefulWidget {
   State<DetailsWidget> createState() => _DetailsWidgetState();
 }
 
-class _DetailsWidgetState extends State<DetailsWidget>
-    with TickerProviderStateMixin {
+class _DetailsWidgetState extends State<DetailsWidget> with TickerProviderStateMixin {
   late DetailsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -78,8 +77,7 @@ class _DetailsWidgetState extends State<DetailsWidget>
               elevation: 0,
               insetPadding: EdgeInsets.zero,
               backgroundColor: Colors.transparent,
-              alignment: const AlignmentDirectional(0.0, 0.0)
-                  .resolve(Directionality.of(context)),
+              alignment: const AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
               child: GestureDetector(
                 onTap: () => FocusScope.of(dialogContext).unfocus(),
                 child: const CongratsModalWidget(),
@@ -96,8 +94,7 @@ class _DetailsWidgetState extends State<DetailsWidget>
               elevation: 0,
               insetPadding: EdgeInsets.zero,
               backgroundColor: Colors.transparent,
-              alignment: const AlignmentDirectional(0.0, 0.0)
-                  .resolve(Directionality.of(context)),
+              alignment: const AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
               child: GestureDetector(
                 onTap: () => FocusScope.of(dialogContext).unfocus(),
                 child: const FailedModalWidget(),
@@ -267,9 +264,7 @@ class _DetailsWidgetState extends State<DetailsWidget>
       ),
     });
     setupAnimations(
-      animationsMap.values.where((anim) =>
-          anim.trigger == AnimationTrigger.onActionTrigger ||
-          !anim.applyInitialState),
+      animationsMap.values.where((anim) => anim.trigger == AnimationTrigger.onActionTrigger || !anim.applyInitialState),
       this,
     );
 
@@ -317,16 +312,12 @@ class _DetailsWidgetState extends State<DetailsWidget>
               ),
             );
           }
-          List<PerspektivasRecord> detailsPerspektivasRecordList =
-              snapshot.data!;
+          List<PerspektivasRecord> detailsPerspektivasRecordList = snapshot.data!;
           // Return an empty Container when the item does not exist.
           if (snapshot.data!.isEmpty) {
             return Container();
           }
-          final detailsPerspektivasRecord =
-              detailsPerspektivasRecordList.isNotEmpty
-                  ? detailsPerspektivasRecordList.first
-                  : null;
+          final detailsPerspektivasRecord = detailsPerspektivasRecordList.isNotEmpty ? detailsPerspektivasRecordList.first : null;
 
           return GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
@@ -378,16 +369,14 @@ class _DetailsWidgetState extends State<DetailsWidget>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              20.0, 20.0, 20.0, 0.0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Icon(
                                 Icons.settings_outlined,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
+                                color: FlutterFlowTheme.of(context).secondaryText,
                                 size: 24.0,
                               ),
                               InkWell(
@@ -396,8 +385,7 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  logFirebaseEvent(
-                                      'DETAILS_PAGE_Icon_86l0iw8h_ON_TAP');
+                                  logFirebaseEvent('DETAILS_PAGE_Icon_86l0iw8h_ON_TAP');
                                   logFirebaseEvent('Icon_navigate_back');
                                   //context.safePop();
                                   /*context.pushNamedAuth(
@@ -439,8 +427,7 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                 },
                                 child: Icon(
                                   Icons.chevron_left_rounded,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
+                                  color: FlutterFlowTheme.of(context).secondaryText,
                                   size: 24.0,
                                 ),
                               ),
@@ -448,22 +435,19 @@ class _DetailsWidgetState extends State<DetailsWidget>
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 50.0, 0.0, 0.0),
+                          padding: const EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
                           child: Stack(
                             alignment: const AlignmentDirectional(0.0, 0.0),
                             children: [
                               Align(
-                                alignment:
-                                    const AlignmentDirectional(0.09, 0.0),
+                                alignment: const AlignmentDirectional(0.09, 0.0),
                                 child: InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    logFirebaseEvent(
-                                        'DETAILS_PAGE_Image_yatw0pc6_ON_TAP');
+                                    logFirebaseEvent('DETAILS_PAGE_Image_yatw0pc6_ON_TAP');
                                     logFirebaseEvent('Image_expand_image');
                                     await Navigator.push(
                                       context,
@@ -471,43 +455,49 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                         type: PageTransitionType.fade,
                                         child: FlutterFlowExpandedImageView(
                                           image: Image.network(
-                                            detailsPerspektivasRecord
-                                                .perspektivaPicture,
+                                            detailsPerspektivasRecord.perspektivaPicture,
                                             fit: BoxFit.contain,
-                                            alignment:
-                                                const Alignment(0.0, 0.0),
+                                            alignment: const Alignment(0.0, 0.0),
                                           ),
                                           allowRotation: false,
-                                          tag: detailsPerspektivasRecord
-                                              .perspektivaPicture,
+                                          tag: detailsPerspektivasRecord.perspektivaPicture,
                                           useHeroAnimation: true,
                                         ),
                                       ),
                                     );
                                   },
                                   child: Hero(
-                                    tag: detailsPerspektivasRecord!
-                                        .perspektivaPicture,
+                                    tag: detailsPerspektivasRecord!.perspektivaPicture,
                                     transitionOnUserGestures: true,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8.0),
-                                      child: Image.network(
+                                      child: FadeInImage(
+                                        placeholder: BlurhashFfiImage(
+                                            detailsPerspektivasRecord.hashedPicture), // You can use any image provider here for blurhash
+                                        image: NetworkImage(detailsPerspektivasRecord.perspektivaPicture),
+                                        fit: BoxFit.cover,
+                                        width: 300.0,
+                                        height: 300.0,
+                                        imageErrorBuilder: (context, error, stackTrace) {
+                                          // Handle error, you could show a default error widget here if needed
+                                          return const Icon(Icons.error);
+                                        },
+                                      ),
+
+                                      /*
+                                      Image.network(
                                         detailsPerspektivasRecord
                                             .perspektivaPicture,
                                         width: 300.0,
                                         height: 300.0,
                                         fit: BoxFit.cover,
                                         alignment: const Alignment(0.0, 0.0),
-                                      ),
+                                      ),*/
                                     ),
                                   ),
                                 )
-                                    .animateOnPageLoad(animationsMap[
-                                        'imageOnPageLoadAnimation']!)
-                                    .animateOnActionTrigger(
-                                        animationsMap[
-                                            'imageOnActionTriggerAnimation']!,
-                                        hasBeenTriggered: hasImageTriggered),
+                                    .animateOnPageLoad(animationsMap['imageOnPageLoadAnimation']!)
+                                    .animateOnActionTrigger(animationsMap['imageOnActionTriggerAnimation']!, hasBeenTriggered: hasImageTriggered),
                               ),
                               if (widget.correctGuessOnBack)
                                 const Align(
@@ -532,26 +522,21 @@ class _DetailsWidgetState extends State<DetailsWidget>
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 10.0, 0.0, 0.0),
+                              padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Text(
                                     'The objective:',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
+                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           fontFamily: 'Manrope',
                                           letterSpacing: 0.0,
                                         ),
                                   ),
                                   Text(
                                     'Be within ',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
+                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
                                           fontFamily: 'Manrope',
                                           fontSize: 9.0,
                                           letterSpacing: 0.0,
@@ -559,23 +544,14 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                         ),
                                   ),
                                   RichText(
-                                    textScaler:
-                                        MediaQuery.of(context).textScaler,
+                                    textScaler: MediaQuery.of(context).textScaler,
                                     text: TextSpan(
                                       children: [
                                         TextSpan(
-                                          text: functions
-                                              .getRadiusBasedOnDifficulty(
-                                                  detailsPerspektivasRecord
-                                                      .difficulty)
-                                              .toString(),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
+                                          text: functions.getRadiusBasedOnDifficulty(detailsPerspektivasRecord.difficulty).toString(),
+                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                 fontFamily: 'Manrope',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: FlutterFlowTheme.of(context).primaryText,
                                                 fontSize: 12.0,
                                                 letterSpacing: 0.0,
                                                 fontWeight: FontWeight.bold,
@@ -589,9 +565,7 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                           ),
                                         )
                                       ],
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
+                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                                             fontFamily: 'Manrope',
                                             letterSpacing: 0.0,
                                           ),
@@ -621,92 +595,58 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         valueOrDefault<String>(
                                           detailsPerspektivasRecord.name,
                                           'null_name',
                                         ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .displaySmall
-                                            .override(
+                                        style: FlutterFlowTheme.of(context).displaySmall.override(
                                               fontFamily: 'Urbanist',
                                               color: Colors.white,
                                               fontSize: 32.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                             ),
-                                      ).animateOnPageLoad(animationsMap[
-                                          'textOnPageLoadAnimation1']!),
+                                      ).animateOnPageLoad(animationsMap['textOnPageLoadAnimation1']!),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0.0, 12.0, 0.0, 0.0),
+                                        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Column(
                                               mainAxisSize: MainAxisSize.max,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Padding(
-                                                  padding:
-                                                      const EdgeInsetsDirectional
-                                                          .fromSTEB(
-                                                          0.0, 8.0, 0.0, 0.0),
+                                                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                                                   child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
+                                                    mainAxisSize: MainAxisSize.max,
                                                     children: [
                                                       RatingBarIndicator(
-                                                        itemBuilder:
-                                                            (context, index) =>
-                                                                Icon(
+                                                        itemBuilder: (context, index) => Icon(
                                                           Icons.bolt,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondary,
+                                                          color: FlutterFlowTheme.of(context).secondary,
                                                         ),
-                                                        direction:
-                                                            Axis.horizontal,
-                                                        rating:
-                                                            detailsPerspektivasRecord
-                                                                .difficulty
-                                                                .toDouble(),
-                                                        unratedColor:
-                                                            const Color(
-                                                                0x9AFFFFFF),
+                                                        direction: Axis.horizontal,
+                                                        rating: detailsPerspektivasRecord.difficulty.toDouble(),
+                                                        unratedColor: const Color(0x9AFFFFFF),
                                                         itemCount: 5,
                                                         itemSize: 16.0,
                                                       ),
                                                       Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(8.0,
-                                                                0.0, 0.0, 0.0),
+                                                        padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
                                                         child: Text(
-                                                          valueOrDefault<
-                                                              String>(
-                                                            detailsPerspektivasRecord
-                                                                .difficulty
-                                                                .toString(),
+                                                          valueOrDefault<String>(
+                                                            detailsPerspektivasRecord.difficulty.toString(),
                                                             '1',
                                                           ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodySmall
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Manrope',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
-                                                                letterSpacing:
-                                                                    0.0,
+                                                          style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                fontFamily: 'Manrope',
+                                                                color: FlutterFlowTheme.of(context).primaryText,
+                                                                letterSpacing: 0.0,
                                                               ),
                                                         ),
                                                       ),
@@ -716,85 +656,48 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                               ],
                                             ),
                                           ],
-                                        ).animateOnPageLoad(animationsMap[
-                                            'rowOnPageLoadAnimation1']!),
+                                        ).animateOnPageLoad(animationsMap['rowOnPageLoadAnimation1']!),
                                       ),
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(0.0, 0.0, 0.0, 12.0),
+                                            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                  mainAxisSize: MainAxisSize.max,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(0.0,
-                                                              8.0, 0.0, 0.0),
+                                                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                                                       child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
+                                                        mainAxisSize: MainAxisSize.max,
                                                         children: [
                                                           RatingBarIndicator(
-                                                            itemBuilder:
-                                                                (context,
-                                                                        index) =>
-                                                                    FaIcon(
-                                                              FontAwesomeIcons
-                                                                  .mountain,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondary,
+                                                            itemBuilder: (context, index) => FaIcon(
+                                                              FontAwesomeIcons.mountain,
+                                                              color: FlutterFlowTheme.of(context).secondary,
                                                             ),
-                                                            direction:
-                                                                Axis.horizontal,
-                                                            rating: detailsPerspektivasRecord
-                                                                .difficultyTerrain
-                                                                .toDouble(),
-                                                            unratedColor:
-                                                                const Color(
-                                                                    0x9AFFFFFF),
+                                                            direction: Axis.horizontal,
+                                                            rating: detailsPerspektivasRecord.difficultyTerrain.toDouble(),
+                                                            unratedColor: const Color(0x9AFFFFFF),
                                                             itemCount: 5,
                                                             itemSize: 16.0,
                                                           ),
                                                           Padding(
-                                                            padding:
-                                                                const EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                    8.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
+                                                            padding: const EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
                                                             child: Text(
-                                                              valueOrDefault<
-                                                                  String>(
-                                                                detailsPerspektivasRecord
-                                                                    .difficultyTerrain
-                                                                    .toString(),
+                                                              valueOrDefault<String>(
+                                                                detailsPerspektivasRecord.difficultyTerrain.toString(),
                                                                 '1',
                                                               ),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodySmall
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Manrope',
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
-                                                                    letterSpacing:
-                                                                        0.0,
+                                                              style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                    fontFamily: 'Manrope',
+                                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                                    letterSpacing: 0.0,
                                                                   ),
                                                             ),
                                                           ),
@@ -804,131 +707,86 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                                   ],
                                                 ),
                                               ],
-                                            ).animateOnPageLoad(animationsMap[
-                                                'rowOnPageLoadAnimation2']!),
+                                            ).animateOnPageLoad(animationsMap['rowOnPageLoadAnimation2']!),
                                           ),
                                         ],
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0.0, 5.0, 0.0, 4.0),
+                                        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 4.0),
                                         child: Text(
                                           'Description',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodySmall
-                                              .override(
+                                          style: FlutterFlowTheme.of(context).bodySmall.override(
                                                 fontFamily: 'Urbanist',
                                                 color: Colors.white,
                                                 letterSpacing: 0.0,
                                               ),
-                                        ).animateOnPageLoad(animationsMap[
-                                            'textOnPageLoadAnimation2']!),
+                                        ).animateOnPageLoad(animationsMap['textOnPageLoadAnimation2']!),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsetsDirectional
-                                            .fromSTEB(0.0, 0.0, 0.0, 65.0),
+                                        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 65.0),
                                         child: Text(
                                           valueOrDefault<String>(
-                                            detailsPerspektivasRecord
-                                                .description,
+                                            detailsPerspektivasRecord.description,
                                             'null_desc',
                                           ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .titleSmall
-                                              .override(
+                                          style: FlutterFlowTheme.of(context).titleSmall.override(
                                                 fontFamily: 'Manrope',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                                color: FlutterFlowTheme.of(context).primaryText,
                                                 letterSpacing: 0.0,
                                               ),
-                                        ).animateOnPageLoad(animationsMap[
-                                            'textOnPageLoadAnimation3']!),
+                                        ).animateOnPageLoad(animationsMap['textOnPageLoadAnimation3']!),
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
                               Align(
-                                alignment:
-                                    const AlignmentDirectional(0.02, 1.06),
+                                alignment: const AlignmentDirectional(0.02, 1.06),
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 10.0, 0.0, 40.0),
+                                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 40.0),
                                   child: FFButtonWidget(
-                                    onPressed: widget
-                                            .perspektivaIsAlreadyGuessedByUser
+                                    onPressed: widget.perspektivaIsAlreadyGuessedByUser
                                         ? null
                                         : () async {
-                                            logFirebaseEvent(
-                                                'DETAILS_I_KNOW_WHERE_THIS_IS_BTN_ON_TAP');
-                                            logFirebaseEvent(
-                                                'Button_haptic_feedback');
+                                            logFirebaseEvent('DETAILS_I_KNOW_WHERE_THIS_IS_BTN_ON_TAP');
+                                            logFirebaseEvent('Button_haptic_feedback');
                                             HapticFeedback.selectionClick();
-                                            logFirebaseEvent(
-                                                'Button_upload_media_to_firebase');
-                                            final selectedMedia =
-                                                await selectMedia(
+                                            logFirebaseEvent('Button_upload_media_to_firebase');
+                                            final selectedMedia = await selectMedia(
                                               multiImage: false,
                                             );
-                                            if (selectedMedia != null &&
-                                                selectedMedia.every((m) =>
-                                                    validateFileFormat(
-                                                        m.storagePath,
-                                                        context))) {
-                                              setState(() => _model
-                                                  .isDataUploading = true);
-                                              var selectedUploadedFiles =
-                                                  <FFUploadedFile>[];
+                                            if (selectedMedia != null && selectedMedia.every((m) => validateFileFormat(m.storagePath, context))) {
+                                              setState(() => _model.isDataUploading = true);
+                                              var selectedUploadedFiles = <FFUploadedFile>[];
 
                                               var downloadUrls = <String>[];
                                               try {
-                                                selectedUploadedFiles =
-                                                    selectedMedia
-                                                        .map((m) =>
-                                                            FFUploadedFile(
-                                                              name: m
-                                                                  .storagePath
-                                                                  .split('/')
-                                                                  .last,
-                                                              bytes: m.bytes,
-                                                              height: m
-                                                                  .dimensions
-                                                                  ?.height,
-                                                              width: m
-                                                                  .dimensions
-                                                                  ?.width,
-                                                              blurHash:
-                                                                  m.blurHash,
-                                                            ))
-                                                        .toList();
+                                                selectedUploadedFiles = selectedMedia
+                                                    .map((m) => FFUploadedFile(
+                                                          name: m.storagePath.split('/').last,
+                                                          bytes: m.bytes,
+                                                          height: m.dimensions?.height,
+                                                          width: m.dimensions?.width,
+                                                          blurHash: m.blurHash,
+                                                        ))
+                                                    .toList();
 
-                                                downloadUrls =
-                                                    (await Future.wait(
+                                                downloadUrls = (await Future.wait(
                                                   selectedMedia.map(
-                                                    (m) async =>
-                                                        await uploadData(
-                                                            m.storagePath,
-                                                            m.bytes),
+                                                    (m) async => await uploadData(m.storagePath, m.bytes),
                                                   ),
                                                 ))
-                                                        .where((u) => u != null)
-                                                        .map((u) => u!)
-                                                        .toList();
+                                                    .where((u) => u != null)
+                                                    .map((u) => u!)
+                                                    .toList();
                                               } finally {
                                                 _model.isDataUploading = false;
                                               }
-                                              if (selectedUploadedFiles
-                                                          .length ==
-                                                      selectedMedia.length &&
-                                                  downloadUrls.length ==
-                                                      selectedMedia.length) {
+                                              if (selectedUploadedFiles.length == selectedMedia.length &&
+                                                  downloadUrls.length == selectedMedia.length) {
                                                 setState(() {
-                                                  _model.uploadedLocalFile =
-                                                      selectedUploadedFiles
-                                                          .first;
-                                                  _model.uploadedFileUrl =
-                                                      downloadUrls.first;
+                                                  _model.uploadedLocalFile = selectedUploadedFiles.first;
+                                                  _model.uploadedFileUrl = downloadUrls.first;
                                                 });
                                               } else {
                                                 setState(() {});
@@ -936,35 +794,28 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                               }
                                             }
 
-                                            logFirebaseEvent(
-                                                'Button_navigate_to');
+                                            logFirebaseEvent('Button_navigate_to');
 
                                             context.pushNamed(
                                               'SubmitGuess_2',
                                               queryParameters: {
-                                                'perspektivaGuessURL':
-                                                    serializeParam(
+                                                'perspektivaGuessURL': serializeParam(
                                                   _model.uploadedFileUrl,
                                                   ParamType.String,
                                                 ),
-                                                'perspektivaLocation':
-                                                    serializeParam(
-                                                  detailsPerspektivasRecord
-                                                      .location,
+                                                'perspektivaLocation': serializeParam(
+                                                  detailsPerspektivasRecord.location,
                                                   ParamType.LatLng,
                                                 ),
                                                 'perspektivaID': serializeParam(
-                                                  detailsPerspektivasRecord
-                                                      .perspektivaUuid,
+                                                  detailsPerspektivasRecord.perspektivaUuid,
                                                   ParamType.String,
                                                 ),
-                                                'isCorrectGuess':
-                                                    serializeParam(
+                                                'isCorrectGuess': serializeParam(
                                                   false,
                                                   ParamType.bool,
                                                 ),
-                                                'perspektivaDocRef':
-                                                    serializeParam(
+                                                'perspektivaDocRef': serializeParam(
                                                   detailsPerspektivasRecord,
                                                   ParamType.Document,
                                                 ),
@@ -978,29 +829,18 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                                 ),
                                               }.withoutNulls,
                                               extra: <String, dynamic>{
-                                                'perspektivaDocRef':
-                                                    detailsPerspektivasRecord,
+                                                'perspektivaDocRef': detailsPerspektivasRecord,
                                               },
                                             );
                                           },
-                                    text:
-                                        widget.perspektivaIsAlreadyGuessedByUser
-                                            ? 'You guessed it!'
-                                            : 'I know where this is!',
+                                    text: widget.perspektivaIsAlreadyGuessedByUser ? 'You guessed it!' : 'I know where this is!',
                                     options: FFButtonOptions(
                                       width: 250.0,
                                       height: 40.0,
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              24.0, 0.0, 24.0, 0.0),
-                                      iconPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondary,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .override(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                                      iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                      color: FlutterFlowTheme.of(context).secondary,
+                                      textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                             fontFamily: 'Manrope',
                                             color: Colors.white,
                                             letterSpacing: 0.0,
@@ -1011,13 +851,10 @@ class _DetailsWidgetState extends State<DetailsWidget>
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
-                                      disabledColor:
-                                          FlutterFlowTheme.of(context).tertiary,
-                                      hoverColor: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
+                                      disabledColor: FlutterFlowTheme.of(context).tertiary,
+                                      hoverColor: FlutterFlowTheme.of(context).secondaryBackground,
                                       hoverBorderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
+                                        color: FlutterFlowTheme.of(context).secondaryBackground,
                                         width: 1.0,
                                       ),
                                     ),
