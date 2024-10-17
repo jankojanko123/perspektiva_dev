@@ -65,6 +65,11 @@ class PerspektivasRecord extends FirestoreRecord {
   String get perspektivaUuid => _perspektivaUuid ?? '';
   bool hasPerspektivaUuid() => _perspektivaUuid != null;
 
+  // "hashed_picture" field.
+  String? _hashed_picture;
+  String get hashedPicture => _hashed_picture ?? '';
+  bool hasHashedpPicture() => _hashed_picture != null;
+
   void _initializeFields() {
     _name = snapshotData['name'] as String?;
     _description = snapshotData['description'] as String?;
@@ -76,6 +81,7 @@ class PerspektivasRecord extends FirestoreRecord {
     _difficultyTerrain = castToType<int>(snapshotData['difficulty_terrain']);
     _townZip = castToType<int>(snapshotData['town_zip']);
     _perspektivaUuid = snapshotData['perspektiva_uuid'] as String?;
+    _hashed_picture = snapshotData['hashed_picture'] as String?;
   }
 
   static CollectionReference get collection => FirebaseFirestore.instance.collection('perspektivas');

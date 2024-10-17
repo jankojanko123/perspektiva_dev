@@ -14,6 +14,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
 import 'dashboard2_model.dart';
 export 'dashboard2_model.dart';
+import 'package:blurhash_ffi/blurhash_ffi.dart';
 
 class Dashboard2Widget extends StatefulWidget {
   /// A re design
@@ -472,11 +473,17 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget> with TickerProvider
                                       Expanded(
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(4.0),
-                                          child: Image.network(
-                                            allGuessedItem.perspektivaPicture,
+                                          child: FadeInImage(
+                                            placeholder:
+                                                BlurhashFfiImage(allGuessedItem.hashedPicture), // You can use any image provider here for blurhash
+                                            image: NetworkImage(allGuessedItem.perspektivaPicture),
+                                            fit: BoxFit.cover,
                                             width: 300.0,
                                             height: 100.0,
-                                            fit: BoxFit.cover,
+                                            imageErrorBuilder: (context, error, stackTrace) {
+                                              // Handle error, you could show a default error widget here if needed
+                                              return const Icon(Icons.error);
+                                            },
                                           ),
                                         ),
                                       ),
@@ -716,13 +723,43 @@ class _Dashboard2WidgetState extends State<Dashboard2Widget> with TickerProvider
                                         topLeft: Radius.circular(8.0),
                                         topRight: Radius.circular(8.0),
                                       ),
-                                      child: Image.network(
+                                      child: FadeInImage(
+                                        placeholder:
+                                            BlurhashFfiImage(allNotGuessedItem.hashedPicture), // You can use any image provider here for blurhash
+                                        image: NetworkImage(allNotGuessedItem.perspektivaPicture),
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                        height: 200.0,
+                                        imageErrorBuilder: (context, error, stackTrace) {
+                                          // Handle error, you could show a default error widget here if needed
+                                          return const Icon(Icons.error);
+                                        },
+                                      ),
+                                    ),
+
+                                    /*
+                                    ClipRRect(
+                                        borderRadius: const BorderRadius.only(
+                                          bottomLeft: Radius.circular(0.0),
+                                          bottomRight: Radius.circular(0.0),
+                                          topLeft: Radius.circular(8.0),
+                                          topRight: Radius.circular(8.0),
+                                        ),
+                                        child: Image(
+                                            image: BlurhashTheImage(
+                                                NetworkImage(allNotGuessedItem.perspektivaPicture), // you can use any image provider of your choice.
+                                                decodingHeight: 1920,
+                                                decodingWidth: 1080),
+                                            alignment: Alignment.center,
+                                            fit: BoxFit
+                                                .cover) /*
+                                      Image.network(
                                         allNotGuessedItem.perspektivaPicture,
                                         width: double.infinity,
                                         height: 200.0,
                                         fit: BoxFit.cover,
-                                      ),
-                                    ),
+                                      ),*/
+                                        ),*/
                                     Padding(
                                       padding: const EdgeInsets.all(12.0),
                                       child: Column(
