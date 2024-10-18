@@ -1,4 +1,6 @@
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:lottie/lottie.dart';
 
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
@@ -33,6 +35,21 @@ class _TownList2WidgetState extends State<TownList2Widget> {
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'TownList2'});
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      final guesses = await queryPerspektivaUserGuessRecordOnce(
+        queryBuilder: (perspektivaUserGuessRecord) => perspektivaUserGuessRecord.where(
+          'user_uid',
+          isEqualTo: currentUserUid,
+        ),
+      );
+
+      // Ensure the widget is still in the tree before updating state
+      setState(() {
+        _model.perspektivaGuessesByUser = guesses;
+        _model.perspektivasGuessesByUserLenght = _model.perspektivaGuessesByUser?.length ?? 0;
+      });
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -134,43 +151,61 @@ class _TownList2WidgetState extends State<TownList2Widget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(1, 1, 1, 0),
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).secondaryBackground,
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 0,
-                                color: Color(0xFFE0E3E7),
-                                offset: Offset(
-                                  0,
-                                  1,
-                                ),
-                              )
-                            ],
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(0),
-                              bottomRight: Radius.circular(0),
-                              topLeft: Radius.circular(8),
-                              topRight: Radius.circular(8),
-                            ),
-                          ),
-                        ),
-                      ),
                       Align(
                         alignment: AlignmentDirectional(0, 0),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(24, 24, 24, 0),
-                          child: CircularPercentIndicator(
-                            percent: 0.05,
+                        child: Stack(
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 30),
+                              child: Container(
+                                width: 250,
+                                height: 250,
+                                decoration: const BoxDecoration(),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  child: Lottie.network(
+                                    'https://lottie.host/8b8e96e6-5640-4112-822a-4b7c8a38f786/5rtlbBGjiv.json',
+                                    width: 50.0,
+                                    height: 50.0,
+                                    fit: BoxFit.fill,
+                                    animate: true,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              top: 0,
+                              bottom: 20,
+                              left: 0,
+                              right: 0,
+                              child: Center(
+                                child: Animate(
+                                  effects: [
+                                    //ShakeEffect(duration: 700.ms, delay: 600.ms, hz: 3),
+                                    ShimmerEffect(delay: 600.ms, duration: 1000.ms, color: FlutterFlowTheme.of(context).tertiary)
+                                  ],
+                                  child: Text(
+                                    _model.perspektivasGuessesByUserLenght != null ? _model.perspektivasGuessesByUserLenght.toString() : '',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 100,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        /*CircularPercentIndicator(
+                            percent: 0.05, //_model.perspektivasGuessesByUserLenght! / 2 * 100,
                             radius: 100,
                             lineWidth: 20,
                             animation: true,
@@ -183,32 +218,38 @@ class _TownList2WidgetState extends State<TownList2Widget> {
                                 ScaleEffect(
                                   duration: 500.ms,
                                 ),
-                                ShakeEffect(duration: 700.ms, delay: 600.ms, hz: 3),
+                                //ShakeEffect(duration: 700.ms, delay: 600.ms, hz: 3),
                                 ShimmerEffect(delay: 600.ms, duration: 1000.ms, color: FlutterFlowTheme.of(context).tertiary)
                               ],
-                              child: Text(
-                                '5',
+                              child: Lottie.network(
+                                'https://lottie.host/1cfa13e6-d1ff-4775-a49a-dadcbc9199ea/CrJqy0EtAo.json',
+                                //'https://lottie.host/a0c68c34-b06c-4af9-b524-63fb5a5a47ed/IEzAUxtVUo.json',
+
+                                width: 500.0, // Adjust width and height to cover more space in the background
+                                height: 500.0,
+                                fit: BoxFit.cover,
+                                animate: true,
+                              ), /*
+                              Text(
+                                _model.perspektivasGuessesByUserLenght.toString(),
                                 style: FlutterFlowTheme.of(context).displaySmall.override(
                                       fontFamily: 'Urbanist',
                                       letterSpacing: 0.0,
                                     ),
-                              ),
+                              ),*/
                             ),
-                          ),
-                        ),
+                          ),*/
+                        // ),
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(24, 36, 24, 0),
-                        child: Text(
+                        /*child: Text(
                           'Gotta find them all!',
                           style: FlutterFlowTheme.of(context).bodyLarge.override(
                                 fontFamily: 'Manrope',
                                 letterSpacing: 0.0,
                               ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(24, 4, 24, 8),
+                        ),*/
                       ),
                     ],
                   ),

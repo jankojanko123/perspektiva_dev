@@ -49,8 +49,7 @@ class SubmitGuess2Widget extends StatefulWidget {
   State<SubmitGuess2Widget> createState() => _SubmitGuess2WidgetState();
 }
 
-class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
-    with TickerProviderStateMixin {
+class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget> with TickerProviderStateMixin {
   late SubmitGuess2Model _model;
 
   latlong2.LatLng? markerLocation;
@@ -72,20 +71,15 @@ class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
     super.initState();
     _model = createModel(context, () => SubmitGuess2Model());
 
-    logFirebaseEvent('screen_view',
-        parameters: {'screen_name': 'SubmitGuess_2'});
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'SubmitGuess_2'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      currentUserLocationValue =
-          await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
+      currentUserLocationValue = await getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0));
 
       HapticFeedback.vibrate();
 
-      if (functions.isPointInsideCircel(
-          widget.perspektivaLocation!,
-          FFAppState().LatLngList.first,
-          functions.calculateRadius(widget.perspektivaDocRef!.difficulty,
-              widget.perspektivaDocRef!.difficultyTerrain, true))) {
+      if (functions.isPointInsideCircel(widget.perspektivaLocation!, FFAppState().LatLngList.first,
+          functions.calculateRadius(widget.perspektivaDocRef!.difficulty, widget.perspektivaDocRef!.difficultyTerrain, true))) {
         _model.photoCompareResult =
             50; /*  await actions.comparePhotos( ---- TODO: Add a photo AI comparer!
           widget.perspektivaDocRef!.perspektivaPicture,
@@ -127,9 +121,7 @@ class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
           ));
       // CorrectPerspektivaUserGuess
 
-      await PerspektivaUserGuessRecord.collection
-          .doc()
-          .set(createPerspektivaUserGuessRecordData(
+      await PerspektivaUserGuessRecord.collection.doc().set(createPerspektivaUserGuessRecordData(
             perspektivaUuid: widget.perspektivaID,
             userUid: currentUserUid,
             isCorrect: true,
@@ -160,8 +152,7 @@ class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
       );
     });
 
-    getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
-        .then((loc) => setState(() => currentUserLocationValue = loc));
+    getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true).then((loc) => setState(() => currentUserLocationValue = loc));
     animationsMap.addAll({
       'iconButtonOnActionTriggerAnimation': AnimationInfo(
         trigger: AnimationTrigger.onActionTrigger,
@@ -180,9 +171,7 @@ class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
     });
 
     setupAnimations(
-      animationsMap.values.where((anim) =>
-          anim.trigger == AnimationTrigger.onActionTrigger ||
-          !anim.applyInitialState),
+      animationsMap.values.where((anim) => anim.trigger == AnimationTrigger.onActionTrigger || !anim.applyInitialState),
       this,
     );
 
@@ -301,50 +290,46 @@ class _SubmitGuess2WidgetState extends State<SubmitGuess2Widget>
                           width: MediaQuery.sizeOf(context).width * 1.0,
                           height: MediaQuery.sizeOf(context).height * 0.75,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
+                            color: FlutterFlowTheme.of(context).secondaryBackground,
                           ),
                           child: Stack(
                             children: [
-                              if (currentUserLocationValue.latitude != 0 &&
-                                  currentUserLocationValue.longitude != 0)
+                              if (currentUserLocationValue.latitude != 0 && currentUserLocationValue.longitude != 0)
                                 Align(
-                                  alignment:
-                                      const AlignmentDirectional(0.0, 0.0),
-                                  child: OSMMap(
-                                    initialLocation: currentUserLocationValue,
-                                    perspektivaLocation:
-                                        widget.perspektivaDocRef?.location,
-                                    difficulty:
-                                        widget.perspektivaDocRef?.difficulty,
-                                    terrain_difficulty: widget
-                                        .perspektivaDocRef?.difficultyTerrain,
-                                    latlongMarkerList: FFAppState().LatLngList,
-                                    onLocationChanged:
-                                        (latlong2.LatLng newLocation) {
-                                      setState(() {
-                                        updateMarkerLocation(newLocation);
-                                        //FFAppState().LatLngList = [newLocation];
-                                      }); /*TODO: STUCK ON THIS add marker*/
-                                    },
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    child: OSMMap(
+                                      initialLocation: currentUserLocationValue,
+                                      perspektivaLocation: widget.perspektivaDocRef?.location,
+                                      difficulty: widget.perspektivaDocRef?.difficulty,
+                                      terrain_difficulty: widget.perspektivaDocRef?.difficultyTerrain,
+                                      latlongMarkerList: FFAppState().LatLngList,
+                                      onLocationChanged: (latlong2.LatLng newLocation) {
+                                        setState(() {
+                                          updateMarkerLocation(newLocation);
+                                          //FFAppState().LatLngList = [newLocation];
+                                        }); /*TODO: STUCK ON THIS add marker*/
+                                      },
 
-                                    /*
-                                  markers:
-                                      FFAppState().LatLngList.map((marker) {
-                                    return OSMMarker(
-                                      id: marker.serialize(),
-                                      position: marker,
-                                    );
-                                  }).toList(),
-                                  onLocationChanged: (latLng) {
-                                    setState(() {
-                                      _model.googleMapsCenter = latLng;
-                                    });
-                                  },
-                                  showZoomControls:
-                                      true, // Adjust based on your design requirements
-                                  // Additional OSM map options can be set here
-                                  */
+                                      /*
+                                    markers:
+                                        FFAppState().LatLngList.map((marker) {
+                                      return OSMMarker(
+                                        id: marker.serialize(),
+                                        position: marker,
+                                      );
+                                    }).toList(),
+                                    onLocationChanged: (latLng) {
+                                      setState(() {
+                                        _model.googleMapsCenter = latLng;
+                                      });
+                                    },
+                                    showZoomControls:
+                                        true, // Adjust based on your design requirements
+                                    // Additional OSM map options can be set here
+                                    */
+                                    ),
                                   ),
                                 ),
 /*
@@ -388,46 +373,34 @@ GOOGLE MAPS --->
 */
 
                               Align(
-                                alignment:
-                                    const AlignmentDirectional(0.0, -0.05),
+                                alignment: const AlignmentDirectional(0.0, -0.05),
                                 child: PointerInterceptor(
                                   intercepting: isWeb,
                                   child: const Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 3.0),
+                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 3.0),
                                   ),
                                 ),
                               ),
                               if (FFAppState().LatLngList.length <= 5)
                                 Align(
-                                  alignment:
-                                      const AlignmentDirectional(0.0, 0.9),
+                                  alignment: const AlignmentDirectional(0.0, 0.9),
                                   child: PointerInterceptor(
                                     intercepting: isWeb,
                                     child: Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              5.0, 0.0, 5.0, 0.0),
+                                      padding: const EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           FlutterFlowIconButton(
-                                            borderColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryBackground,
+                                            borderColor: FlutterFlowTheme.of(context).primaryBackground,
                                             borderRadius: 50.0,
                                             borderWidth: 5.0,
                                             buttonSize: 50.0,
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primary,
+                                            fillColor: FlutterFlowTheme.of(context).primary,
                                             icon: Icon(
                                               Icons.add_location_sharp,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .info,
+                                              color: FlutterFlowTheme.of(context).info,
                                               size: 30.0,
                                             ),
                                             showLoadingIndicator: false,
@@ -438,8 +411,7 @@ GOOGLE MAPS --->
 
                                               setState(() {});
 
-                                              FFAppState().addToLatLngList(
-                                                  markerLocation!);
+                                              FFAppState().addToLatLngList(markerLocation!);
 
                                               /*else {OLD LOGIC - if the marker was outside the submit button would move a litle
                                                 
@@ -484,8 +456,7 @@ GOOGLE MAPS --->
                                               setState(() {});
                                             },
                                           ).animateOnActionTrigger(
-                                            animationsMap[
-                                                'iconButtonOnActionTriggerAnimation']!,
+                                            animationsMap['iconButtonOnActionTriggerAnimation']!,
                                           ),
                                         ],
                                       ),
@@ -496,8 +467,7 @@ GOOGLE MAPS --->
                           ),
                         ),
                         const Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 10.0, 10.0, 0.0),
+                          padding: EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -507,8 +477,7 @@ GOOGLE MAPS --->
                         Align(
                           alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 10.0, 0.0, 0.0),
+                            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                             child: Container(
                               decoration: const BoxDecoration(
                                 boxShadow: [
@@ -568,8 +537,7 @@ GOOGLE MAPS --->
                 ],
               ),
               Padding(
-                padding:
-                    const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -577,44 +545,107 @@ GOOGLE MAPS --->
                   children: [
                     Align(
                       alignment: const AlignmentDirectional(0.0, 1.0),
-                      child: FFButtonWidget(
-                        onPressed: () async {
-                          if (FFAppState().LatLngList.isNotEmpty) {
-                            var shouldSetState = false;
+                      child: Animate(
+                        effects: [
+                          ShimmerEffect(
+                            duration: FFAppState().LatLngList.isNotEmpty ? 1000.ms : 0.ms,
+                          ),
+                          ShakeEffect(
+                            duration: FFAppState().LatLngList.isNotEmpty ? 1000.ms : 0.ms,
+                            hz: FFAppState().LatLngList.isNotEmpty ? 3 : 0,
+                          )
+                        ],
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            if (FFAppState().LatLngList.isNotEmpty) {
+                              var shouldSetState = false;
 
-                            //HapticFeedback.vibrate();
-/*TODO: add animations
-                            if (FFAppState().LatLngList.isEmpty) {
-                              
-                              if (animationsMap[
-                                      'iconButtonOnActionTriggerAnimation'] !=
-                                  null) {
-                                await animationsMap[
-                                        'iconButtonOnActionTriggerAnimation']!
-                                    .controller
-                                    .forward(from: 0.0);
+                              //HapticFeedback.vibrate();
+                              /*TODO: add animations
+                              if (FFAppState().LatLngList.isEmpty) {
+                                
+                                if (animationsMap[
+                                        'iconButtonOnActionTriggerAnimation'] !=
+                                    null) {
+                                  await animationsMap[
+                                          'iconButtonOnActionTriggerAnimation']!
+                                      .controller
+                                      .forward(from: 0.0);
+                                }
+                                if (shouldSetState) setState(() {});
+                                return;
                               }
-                              if (shouldSetState) setState(() {});
-                              return;
-                            }
-*/
+                        */
 
-                            if (functions.isPointInsideCircel(
-                                widget.perspektivaDocRef?.location,
-                                FFAppState().LatLngList.first,
-                                functions.calculateRadius(
-                                    widget.perspektivaDocRef!.difficulty,
-                                    widget.perspektivaDocRef!.difficultyTerrain,
-                                    false))) {
-                              /* logFirebaseEvent('Button_custom_action');
-                              _model.photoCompareResultCopy =
-                                  await actions.comparePhotos(
-                                widget.perspektivaDocRef!.perspektivaPicture,
-                                widget.perspektivaGuessURL!,
-                              );*/
+                              if (functions.isPointInsideCircel(
+                                  widget.perspektivaDocRef?.location,
+                                  FFAppState().LatLngList.first,
+                                  functions.calculateRadius(
+                                      widget.perspektivaDocRef!.difficulty, widget.perspektivaDocRef!.difficultyTerrain, false))) {
+                                /* logFirebaseEvent('Button_custom_action');
+                                _model.photoCompareResultCopy =
+                                    await actions.comparePhotos(
+                                  widget.perspektivaDocRef!.perspektivaPicture,
+                                  widget.perspektivaGuessURL!,
+                                );*/
 
-                              shouldSetState = true;
-                            } else {
+                                shouldSetState = true;
+                              } else {
+                                FFAppState().LatLngList = [];
+                                setState(() {});
+
+                                context.pushNamed(
+                                  'Details',
+                                  queryParameters: {
+                                    'perspektivaUUID': serializeParam(
+                                      widget.perspektivaID,
+                                      ParamType.String,
+                                    ),
+                                    'correctGuessOnBack': serializeParam(
+                                      widget.isCorrectGuess,
+                                      ParamType.bool,
+                                    ),
+                                    'perspektivaIsAlreadyGuessedByUser': serializeParam(
+                                      false,
+                                      ParamType.bool,
+                                    ),
+                                    'postBack': serializeParam(
+                                      true,
+                                      ParamType.bool,
+                                    ),
+                                    'townZip': serializeParam(
+                                      widget.townZip,
+                                      ParamType.int,
+                                    ),
+                                    'townName': serializeParam(
+                                      widget.townName,
+                                      ParamType.String,
+                                    ),
+                                  }.withoutNulls,
+                                );
+
+                                if (shouldSetState) setState(() {});
+                                return;
+                              }
+
+                              // CorrectGuessAdd
+
+                              await GuessRecord.collection.doc().set(createGuessRecordData(
+                                    guessPicture: widget.perspektivaGuessURL,
+                                    uid: currentUserUid,
+                                    location: FFAppState().LatLngList.first,
+                                    perspektivaId: widget.perspektivaID,
+                                  ));
+                              // CorrectPerspektivaUserGuess
+
+                              await PerspektivaUserGuessRecord.collection.doc().set(createPerspektivaUserGuessRecordData(
+                                    perspektivaUuid: widget.perspektivaID,
+                                    userUid: currentUserUid,
+                                    isCorrect: true,
+                                    created: getCurrentTimestamp,
+                                    guessId: '0',
+                                  ));
+
                               FFAppState().LatLngList = [];
                               setState(() {});
 
@@ -626,12 +657,11 @@ GOOGLE MAPS --->
                                     ParamType.String,
                                   ),
                                   'correctGuessOnBack': serializeParam(
-                                    widget.isCorrectGuess,
+                                    true,
                                     ParamType.bool,
                                   ),
-                                  'perspektivaIsAlreadyGuessedByUser':
-                                      serializeParam(
-                                    false,
+                                  'perspektivaIsAlreadyGuessedByUser': serializeParam(
+                                    true,
                                     ParamType.bool,
                                   ),
                                   'postBack': serializeParam(
@@ -650,94 +680,32 @@ GOOGLE MAPS --->
                               );
 
                               if (shouldSetState) setState(() {});
-                              return;
                             }
-
-                            // CorrectGuessAdd
-
-                            await GuessRecord.collection
-                                .doc()
-                                .set(createGuessRecordData(
-                                  guessPicture: widget.perspektivaGuessURL,
-                                  uid: currentUserUid,
-                                  location: FFAppState().LatLngList.first,
-                                  perspektivaId: widget.perspektivaID,
-                                ));
-                            // CorrectPerspektivaUserGuess
-
-                            await PerspektivaUserGuessRecord.collection
-                                .doc()
-                                .set(createPerspektivaUserGuessRecordData(
-                                  perspektivaUuid: widget.perspektivaID,
-                                  userUid: currentUserUid,
-                                  isCorrect: true,
-                                  created: getCurrentTimestamp,
-                                  guessId: '0',
-                                ));
-
-                            FFAppState().LatLngList = [];
-                            setState(() {});
-
-                            context.pushNamed(
-                              'Details',
-                              queryParameters: {
-                                'perspektivaUUID': serializeParam(
-                                  widget.perspektivaID,
-                                  ParamType.String,
+                          },
+                          text: 'Submit',
+                          options: FFButtonOptions(
+                            width: 130.0,
+                            height: 40.0,
+                            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            color: valueOrDefault<Color>(
+                              FFAppState().LatLngList.isNotEmpty
+                                  ? FlutterFlowTheme.of(context).secondary
+                                  : FlutterFlowTheme.of(context).secondaryText,
+                              FlutterFlowTheme.of(context).primary,
+                            ),
+                            textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Manrope',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
                                 ),
-                                'correctGuessOnBack': serializeParam(
-                                  true,
-                                  ParamType.bool,
-                                ),
-                                'perspektivaIsAlreadyGuessedByUser':
-                                    serializeParam(
-                                  true,
-                                  ParamType.bool,
-                                ),
-                                'postBack': serializeParam(
-                                  true,
-                                  ParamType.bool,
-                                ),
-                                'townZip': serializeParam(
-                                  widget.townZip,
-                                  ParamType.int,
-                                ),
-                                'townName': serializeParam(
-                                  widget.townName,
-                                  ParamType.String,
-                                ),
-                              }.withoutNulls,
-                            );
-
-                            if (shouldSetState) setState(() {});
-                          }
-                        },
-                        text: 'Submit',
-                        options: FFButtonOptions(
-                          width: 130.0,
-                          height: 40.0,
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          color: valueOrDefault<Color>(
-                            FFAppState().LatLngList.isNotEmpty
-                                ? FlutterFlowTheme.of(context).secondary
-                                : FlutterFlowTheme.of(context).secondaryText,
-                            FlutterFlowTheme.of(context).primary,
+                            elevation: 2.0,
+                            borderSide: const BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Manrope',
-                                    color: Colors.white,
-                                    letterSpacing: 0.0,
-                                  ),
-                          elevation: 2.0,
-                          borderSide: const BorderSide(
-                            color: Colors.transparent,
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
                     ),

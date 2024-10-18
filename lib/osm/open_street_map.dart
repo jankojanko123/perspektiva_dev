@@ -55,10 +55,8 @@ class _OSMMapState extends State<OSMMap> {
     markerLocation = initialLocation;
     circleLocation = initialLocation!;
 
-    radius_selectorBoundryField = functions.calculateRadius(
-        difficulty ?? 1, terrain_difficulty ?? 1, true);
-    radius_perspektivaBoundryField = functions.calculateRadius(
-        difficulty ?? 1, terrain_difficulty ?? 1, false);
+    radius_selectorBoundryField = functions.calculateRadius(difficulty ?? 1, terrain_difficulty ?? 1, true);
+    radius_perspektivaBoundryField = functions.calculateRadius(difficulty ?? 1, terrain_difficulty ?? 1, false);
 
     _mapController = MapController();
 
@@ -93,6 +91,7 @@ class _OSMMapState extends State<OSMMap> {
         mapController: _mapController,
         options: MapOptions(
           center: markerLocation,
+          maxZoom: 18,
           zoom: 1.0,
           onPositionChanged: (MapPosition position, bool hasGesture) {
             if (hasGesture) {
@@ -102,8 +101,7 @@ class _OSMMapState extends State<OSMMap> {
         ),
         children: [
           TileLayer(
-            urlTemplate:
-                'https://api.maptiler.com/maps/outdoor-v2/{z}/{x}/{y}.png?key=fU8jur6oLqkKP5oV2caY',
+            urlTemplate: 'https://api.maptiler.com/maps/outdoor-v2/{z}/{x}/{y}.png?key=fU8jur6oLqkKP5oV2caY',
             subdomains: ['a', 'b', 'c'],
           ),
           CircleLayer(
@@ -151,8 +149,7 @@ class _OSMMapState extends State<OSMMap> {
                 width: 80.0,
                 height: 80.0,
                 point: markerLocation!,
-                anchorPos: AnchorPos.exactly(Anchor(
-                    62.0, 64.0)), // Adjust the anchor position by 5 pixels,
+                //anchorPos: AnchorPos.exactly(Anchor(62.0, 64.0)), // Adjust the anchor position by 5 pixels,
                 builder: (ctx) => GestureDetector(
                   onPanUpdate: (details) {
                     // Convert the drag details to a new LatLng position
@@ -160,9 +157,10 @@ class _OSMMapState extends State<OSMMap> {
                     _restrictMovement(newPosition);
                   },
                   child: Icon(
-                    FontTest.pointer_svgrepo_com,
-                    color: const Color.fromARGB(255, 104, 4, 192),
-                    size: 55,
+                    Icons.api_rounded,
+                    //FontTest.pointer_svgrepo_com,
+                    color: const Color.fromARGB(255, 34, 31, 36),
+                    size: 35,
                     shadows: [
                       Shadow(
                         offset: Offset(-1.0, 3.0),
@@ -216,8 +214,7 @@ class _OSMMapState extends State<OSMMap> {
         final double bearing = distance.bearing(circleLocation, newPosition);
 
         // Calculate the point on the circle's edge that is closest to the newPosition
-        final LatLng closestPoint = distance.offset(
-            circleLocation, radius_selectorBoundryField, bearing);
+        final LatLng closestPoint = distance.offset(circleLocation, radius_selectorBoundryField, bearing);
 
         // Set the map center to the closest point within the circle
         setState(() {

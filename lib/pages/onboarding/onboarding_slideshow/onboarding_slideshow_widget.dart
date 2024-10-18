@@ -5,8 +5,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart'
-    as smooth_page_indicator;
+import 'package:smooth_page_indicator/smooth_page_indicator.dart' as smooth_page_indicator;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -17,12 +16,10 @@ class OnboardingSlideshowWidget extends StatefulWidget {
   const OnboardingSlideshowWidget({super.key});
 
   @override
-  State<OnboardingSlideshowWidget> createState() =>
-      _OnboardingSlideshowWidgetState();
+  State<OnboardingSlideshowWidget> createState() => _OnboardingSlideshowWidgetState();
 }
 
-class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
-    with TickerProviderStateMixin {
+class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget> with TickerProviderStateMixin {
   late OnboardingSlideshowModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -34,8 +31,7 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
     super.initState();
     _model = createModel(context, () => OnboardingSlideshowModel());
 
-    logFirebaseEvent('screen_view',
-        parameters: {'screen_name': 'Onboarding_Slideshow'});
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Onboarding_Slideshow'});
     animationsMap.addAll({
       'textOnPageLoadAnimation1': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
@@ -145,91 +141,66 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
                             child: Stack(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 50.0),
+                                  padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 50.0),
                                   child: PageView(
-                                    controller: _model.pageViewController ??=
-                                        PageController(initialPage: 0),
+                                    controller: _model.pageViewController ??= PageController(initialPage: 0),
                                     scrollDirection: Axis.horizontal,
                                     children: [
                                       Column(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Text(
                                             'Find the',
                                             textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
-                                                .displaySmall
-                                                .override(
+                                            style: FlutterFlowTheme.of(context).displaySmall.override(
                                                   fontFamily: 'Urbanist',
                                                   fontSize: 25.0,
                                                   letterSpacing: 0.0,
                                                 ),
-                                          ).animateOnPageLoad(animationsMap[
-                                              'textOnPageLoadAnimation1']!),
+                                          ).animateOnPageLoad(animationsMap['textOnPageLoadAnimation1']!),
                                           Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(0.0, 0.0, 0.0, 36.0),
+                                            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 36.0),
                                             child: Text(
                                               ' location..',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Manrope',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondary,
-                                                        fontSize: 36.0,
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                    fontFamily: 'Manrope',
+                                                    color: FlutterFlowTheme.of(context).secondary,
+                                                    fontSize: 36.0,
+                                                    letterSpacing: 0.0,
+                                                  ),
                                             ),
                                           ),
                                           Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(24.0, 0.0, 24.0, 0.0),
+                                            padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                                             child: Image.network(
                                               'https://images.unsplash.com/photo-1508913449378-01b9b8174e46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyNHx8bW91bnRhaW5zfGVufDB8fHx8MTcxNTg3NzExMnww&ixlib=rb-4.0.3&q=80&w=1080',
                                               height: 250.0,
                                               fit: BoxFit.fill,
-                                            ).animateOnPageLoad(animationsMap[
-                                                'imageOnPageLoadAnimation']!),
+                                            ).animateOnPageLoad(animationsMap['imageOnPageLoadAnimation']!),
                                           ),
                                         ],
                                       ),
                                       Column(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Text(
                                             'and find the',
                                             textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
-                                                .displaySmall
-                                                .override(
+                                            style: FlutterFlowTheme.of(context).displaySmall.override(
                                                   fontFamily: 'Urbanist',
                                                   fontSize: 25.0,
                                                   letterSpacing: 0.0,
                                                 ),
-                                          ).animateOnPageLoad(animationsMap[
-                                              'textOnPageLoadAnimation2']!),
+                                          ).animateOnPageLoad(animationsMap['textOnPageLoadAnimation2']!),
                                           Padding(
-                                            padding: const EdgeInsetsDirectional
-                                                .fromSTEB(0.0, 0.0, 0.0, 30.0),
+                                            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
                                             child: Text(
                                               'perspektiva',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
+                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                     fontFamily: 'Manrope',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .tertiary,
+                                                    color: FlutterFlowTheme.of(context).tertiary,
                                                     fontSize: 36.0,
                                                     letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w600,
@@ -248,60 +219,52 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
                                       ),
                                       Column(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Animate(
                                             effects: [],
                                             child: Container(
                                               child: Stack(
-                                                alignment: Alignment
-                                                    .center, // Align the children to the center of the Stack
+                                                alignment: Alignment.center, // Align the children to the center of the Stack
                                                 children: [
                                                   // Lottie animation in the background
                                                   GestureDetector(
                                                     onTap: () async {
                                                       // Handle the tap event on the Lottie animation
-                                                      logFirebaseEvent(
-                                                          'ONBOARDING_SLIDESHOW_LOTTIE_ON_TAP');
-                                                      logFirebaseEvent(
-                                                          'Button_haptic_feedback');
-                                                      HapticFeedback
-                                                          .lightImpact();
-                                                      logFirebaseEvent(
-                                                          'Button_navigate_to');
+                                                      logFirebaseEvent('ONBOARDING_SLIDESHOW_LOTTIE_ON_TAP');
+                                                      logFirebaseEvent('Button_haptic_feedback');
+                                                      HapticFeedback.lightImpact();
+                                                      logFirebaseEvent('Button_navigate_to');
 
-                                                      context.pushNamed(
-                                                          'SignIn'); // Navigate to SignIn screen
+                                                      context.pushNamed('SignIn'); // Navigate to SignIn screen
                                                     },
-                                                    child: Lottie.network(
-                                                      'https://lottie.host/99cab212-4aa7-4e03-8048-045fd210da46/7bLup9y182.json',
-                                                      width:
-                                                          300.0, // Adjust width and height to cover more space in the background
-                                                      height: 300.0,
-                                                      fit: BoxFit.cover,
-                                                      animate: true,
+                                                    child: ClipRRect(
+                                                      borderRadius: BorderRadius.circular(90.0),
+                                                      child: Animate(
+                                                        effects: [TiltEffect(duration: 1000.ms)],
+                                                        child: Lottie.network(
+                                                          'https://lottie.host/8b8e96e6-5640-4112-822a-4b7c8a38f786/5rtlbBGjiv.json',
+                                                          width: 200.0, // Adjust width and height to cover more space in the background
+                                                          height: 200.0,
+                                                          fit: BoxFit.cover,
+                                                          animate: true,
+                                                        ),
+                                                      ),
                                                     ),
                                                   ),
                                                   // FFButton in the foreground
                                                   Animate(
                                                       child: GestureDetector(
                                                     onTap: () async {
-                                                      logFirebaseEvent(
-                                                          'ONBOARDING_SLIDESHOW_BEGIN_BTN_ON_TAP');
-                                                      logFirebaseEvent(
-                                                          'Button_haptic_feedback');
-                                                      HapticFeedback
-                                                          .lightImpact();
-                                                      logFirebaseEvent(
-                                                          'Button_navigate_to');
+                                                      logFirebaseEvent('ONBOARDING_SLIDESHOW_BEGIN_BTN_ON_TAP');
+                                                      logFirebaseEvent('Button_haptic_feedback');
+                                                      HapticFeedback.lightImpact();
+                                                      logFirebaseEvent('Button_navigate_to');
 
-                                                      context
-                                                          .pushNamed('SignIn');
+                                                      context.pushNamed('SignIn');
                                                     },
                                                     child: Container(
-                                                      color: Colors
-                                                          .transparent, // <-- add transparent colour
+                                                      color: Colors.transparent, // <-- add transparent colour
                                                       //height: 75,
                                                       //width: 100,
                                                       child: Animate(
@@ -309,18 +272,12 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
                                                           ScaleEffect(
                                                             duration: 1000.ms,
                                                           ),
-                                                          ShakeEffect(
-                                                              duration: 500.ms,
-                                                              delay: 2000.ms,
-                                                              hz: 3),
+                                                          ShakeEffect(duration: 500.ms, delay: 2000.ms, hz: 3),
                                                           ShimmerEffect()
                                                         ],
                                                         child: Text(
                                                           'Lets go!',
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
+                                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
                                                         ),
                                                       ),
                                                     ),
@@ -443,40 +400,29 @@ class _OnboardingSlideshowWidgetState extends State<OnboardingSlideshowWidget>
                                   ),
                                 ),
                                 Align(
-                                  alignment:
-                                      const AlignmentDirectional(0.0, 1.0),
+                                  alignment: const AlignmentDirectional(0.0, 1.0),
                                   child: Padding(
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 10.0),
-                                    child: smooth_page_indicator
-                                        .SmoothPageIndicator(
-                                      controller: _model.pageViewController ??=
-                                          PageController(initialPage: 0),
+                                    padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                                    child: smooth_page_indicator.SmoothPageIndicator(
+                                      controller: _model.pageViewController ??= PageController(initialPage: 0),
                                       count: 3,
                                       axisDirection: Axis.horizontal,
                                       onDotClicked: (i) async {
-                                        await _model.pageViewController!
-                                            .animateToPage(
+                                        await _model.pageViewController!.animateToPage(
                                           i,
-                                          duration:
-                                              const Duration(milliseconds: 500),
+                                          duration: const Duration(milliseconds: 500),
                                           curve: Curves.ease,
                                         );
                                         setState(() {});
                                       },
-                                      effect: smooth_page_indicator
-                                          .ExpandingDotsEffect(
+                                      effect: smooth_page_indicator.ExpandingDotsEffect(
                                         expansionFactor: 3.0,
                                         spacing: 10.0,
                                         radius: 10.0,
                                         dotWidth: 10.0,
                                         dotHeight: 10.0,
-                                        dotColor: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        activeDotColor:
-                                            FlutterFlowTheme.of(context)
-                                                .primaryText,
+                                        dotColor: FlutterFlowTheme.of(context).secondaryText,
+                                        activeDotColor: FlutterFlowTheme.of(context).primaryText,
                                         paintStyle: PaintingStyle.fill,
                                       ),
                                     ),
