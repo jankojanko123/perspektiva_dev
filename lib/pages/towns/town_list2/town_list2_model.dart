@@ -13,6 +13,7 @@ class TownList2Model extends FlutterFlowModel<TownList2Widget> {
   String? Function(BuildContext, String?)? textControllerValidator;
   List<PerspektivaUserGuessRecord>? perspektivaGuessesByUser;
   int? perspektivasGuessesByUserLenght;
+  LatLng? currentUserLocationValue;
 
   @override
   void initState(BuildContext context) {}

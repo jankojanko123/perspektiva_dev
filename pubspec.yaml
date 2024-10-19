@@ -131,6 +131,7 @@ dependencies:
   percent_indicator: ^4.2.3
   flutter_blurhash: ^0.8.2
   blurhash_ffi: ^1.2.6
+  geo_sort: ^0.1.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

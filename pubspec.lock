@@ -565,6 +565,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  geo_sort:
+    dependency: "direct main"
+    description:
+      name: geo_sort
+      sha256: "142d333fe62ca85dfa63ee7f8e8236d2c9129c74d1894b6eff0267d6bad58ba2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0"
   geolocator:
     dependency: "direct main"
     description:
